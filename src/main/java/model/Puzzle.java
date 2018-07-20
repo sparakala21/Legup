@@ -9,6 +9,7 @@ import model.observer.ITreeSubject;
 import model.rules.*;
 import model.tree.Tree;
 import model.tree.TreeNode;
+import model.tree.TreeTransition;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -40,12 +41,12 @@ public abstract class Puzzle implements IBoardSubject, ITreeSubject
     protected PuzzleExporter exporter;
     protected ElementFactory factory;
 
-    private List<IBoardListener> boardListeners;
-    private List<ITreeListener> treeListeners;
-
     protected List<BasicRule> basicRules;
     protected List<ContradictionRule> contradictionRules;
     protected List<CaseRule> caseRules;
+
+    private List<IBoardListener> boardListeners;
+    private List<ITreeListener> treeListeners;
 
     /**
      * Puzzle Constructor - creates a new Puzzle
@@ -59,6 +60,20 @@ public abstract class Puzzle implements IBoardSubject, ITreeSubject
         this.contradictionRules = new ArrayList<>();
         this.caseRules = new ArrayList<>();
     }
+
+    public boolean isContraditoryBoard(Board board)
+    {
+        TreeTransition tran = new TreeTransition(null, board);
+        for(ContradictionRule rule : contradictionRules)
+        {
+            if(rule.checkContradiction(tran) == null)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     /**
      * Initializes the view. Called by the invoker of the class

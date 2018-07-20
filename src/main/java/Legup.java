@@ -1,4 +1,5 @@
 
+import ai.SudokuPuzzleGenerator;
 import app.Config;
 import app.GameBoardFacade;
 import app.InvalidConfigException;
@@ -17,16 +18,25 @@ public class Legup
      */
     public static void main(String[] args)
     {
-        Config config = null;
+        SudokuPuzzleGenerator gen = new SudokuPuzzleGenerator();
         try
         {
-            config = new Config();
+            gen.newRandom("C:\\Users\\jeffp\\Documents\\mysudoku.txt");
         }
-        catch(InvalidConfigException e)
-        {
-            LOGGER.log(Level.SEVERE, e.getMessage());
-            System.exit(1);
+        catch (Exception e) {
+            e.printStackTrace();
         }
-        GameBoardFacade.getInstance().setConfig(config);
+
+//        Config config = null;
+//        try
+//        {
+//            config = new Config();
+//        }
+//        catch(InvalidConfigException e)
+//        {
+//            LOGGER.log(Level.SEVERE, e.getMessage());
+//            System.exit(1);
+//        }
+//        GameBoardFacade.getInstance().setConfig(config);
     }
 }
