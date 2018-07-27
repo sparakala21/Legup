@@ -1,16 +1,12 @@
 package ui.boardview;
 
+import javafx.scene.Node;
 import model.gameboard.Element;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.PathIterator;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 
-public abstract class ElementView implements Shape
+
+public abstract class ElementView extends Node
 {
     protected int index;
     protected Point location;

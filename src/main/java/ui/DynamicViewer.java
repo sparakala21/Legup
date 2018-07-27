@@ -14,9 +14,9 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.Point;
 
-import javax.swing.*;
+import javafx.scene.control.ScrollPane;
 
-public abstract class DynamicViewer extends JScrollPane
+public abstract class DynamicViewer extends ScrollPane
 {
     private final static Logger LOGGER = Logger.getLogger(DynamicViewer.class.getName());
 
@@ -41,14 +41,16 @@ public abstract class DynamicViewer extends JScrollPane
      */
     public DynamicViewer(Controller controller)
     {
-        super(VERTICAL_SCROLLBAR_ALWAYS, HORIZONTAL_SCROLLBAR_ALWAYS);
+        super();
+        setHbarPolicy(ScrollBarPolicy.ALWAYS);
+        setVbarPolicy(ScrollBarPolicy.ALWAYS);
 
         viewSize = new Dimension();
         zoomSize = new Dimension();
         scale = 1.0;
 
         this.canvas = new ZoomablePane(this);
-        viewport.setView(canvas);
+        setContent(canvas);
 
         zoomLevels = new TreeSet<>();
         for(Double level : levels)
@@ -226,6 +228,7 @@ public abstract class DynamicViewer extends JScrollPane
             updatePosition(p, mag);
             updateSize();
         }
+
         // update the scrollpane and subclass
         revalidate();
     }
