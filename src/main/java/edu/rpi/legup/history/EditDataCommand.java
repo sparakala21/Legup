@@ -22,7 +22,6 @@ public class EditDataCommand extends PuzzleCommand
 
     private ElementView elementView;
     private TreeViewSelection selection;
-    private TreeElementView newSelectedView;
     private MouseEvent event;
 
     /**
@@ -55,60 +54,18 @@ public class EditDataCommand extends PuzzleCommand
         }
 
         Puzzle puzzle = getInstance().getPuzzleModule();
-        Tree tree = puzzle.getTree();
-        TreeView treeView = getInstance().getLegupUI().getTreePanel().getTreeView();
         BoardView boardView = getInstance().getLegupUI().getBoardView();
         TreeElementView selectedView = selection.getFirstSelection();
         TreeElement treeElement = selectedView.getTreeElement();
 
         Board board = treeElement.getBoard();
         Element selectedElement = elementView.getElement();
+        element = board.getElementData(selectedElement);
+        saveElement = element.copy();
 
-        if(treeElement.getType() == TreeElementType.NODE)
-        {
-            TreeNode treeNode = (TreeNode) treeElement;
+        boardView.getElementController().changeCell(event, element);
 
-            if(treeNode.getChildren().isEmpty())
-            {
-                if(transition == null)
-                {
-                    transition = tree.addNewTransition(treeNode);
-                }
-                puzzle.notifyTreeListeners(listener -> listener.onTreeElementAdded(transition));
-            }
-
-            final TreeViewSelection newSelection = new TreeViewSelection(treeView.getElementView(transition));
-            puzzle.notifyTreeListeners(listener -> listener.onTreeSelectionChanged(newSelection));
-
-            board = transition.getBoard();
-
-            element = board.getElementData(selectedElement);
-            saveElement = element.copy();
-        }
-        else
-        {
-            transition = (TreeTransition)treeElement;
-            element = board.getElementData(selectedElement);
-            saveElement = this.element.copy();
-        }
-
-        Board prevBoard = transition.getParents().get(0).getBoard();
-
-        boardView.getElementController().changeCell(event, this.element);
-
-        if(prevBoard.getElementData(selectedElement).equalsData(this.element))
-        {
-            board.removeModifiedData(this.element);
-        }
-        else
-        {
-            board.addModifiedData(this.element);
-        }
-        transition.propagateChanges(this.element);
-
-        Board finalBoard = board;
-        puzzle.notifyBoardListeners(listener -> listener.onBoardChanged(finalBoard));
-        puzzle.notifyBoardListeners(listener -> listener.onBoardDataChanged(this.element));
+        puzzle.notifyBoardListeners(listener -> listener.onBoardDataChanged(element));
     }
 
     /**
@@ -117,34 +74,7 @@ public class EditDataCommand extends PuzzleCommand
     @Override
     public boolean canExecute()
     {
-        TreeElementView selectedView = selection.getFirstSelection();
-        Board board = selectedView.getTreeElement().getBoard();
-        Element selectedElement = elementView.getElement();
-
-        if(selectedView.getType() == TreeElementType.NODE)
-        {
-            TreeNodeView nodeView = (TreeNodeView) selectedView;
-            if(!nodeView.getChildrenViews().isEmpty())
-            {
-                return false;
-            }
-            else
-            {
-                return board.getElementData(selectedElement).isModifiable();
-            }
-        }
-        else
-        {
-            TreeTransitionView transitionView = (TreeTransitionView) selectedView;
-            if(!transitionView.getTreeElement().getBoard().isModifiable())
-            {
-                return false;
-            }
-            else
-            {
-                return board.getElementData(selectedElement).isModifiable();
-            }
-        }
+        return true;
     }
 
     /**
@@ -156,23 +86,6 @@ public class EditDataCommand extends PuzzleCommand
     @Override
     public String getExecutionError()
     {
-        if(selection.getSelectedViews().size() > 1)
-        {
-            return "You have to have 1 tree view selected";
-        }
-
-        TreeElementView selectedView = selection.getFirstSelection();
-        Board board = selectedView.getTreeElement().getBoard();
-
-        Element selectedElement = elementView.getElement();
-        if(!board.isModifiable())
-        {
-            return "Board is not modifiable";
-        }
-        else if(!board.getElementData(selectedElement).isModifiable())
-        {
-            return "Data is not modifiable";
-        }
         return null;
     }
 

@@ -1,16 +1,10 @@
 package edu.rpi.legup.puzzle.treetent;
 
-import edu.rpi.legup.app.GameBoardFacade;
 import edu.rpi.legup.controller.ElementController;
-import edu.rpi.legup.model.gameboard.Board;
 import edu.rpi.legup.model.gameboard.Element;
-import edu.rpi.legup.model.tree.Tree;
-import edu.rpi.legup.ui.boardview.BoardView;
-import edu.rpi.legup.ui.treeview.TreeView;
 
 import java.awt.event.MouseEvent;
 
-import static edu.rpi.legup.app.GameBoardFacade.getInstance;
 
 public class TreeTentController extends ElementController
 {
@@ -27,12 +21,12 @@ public class TreeTentController extends ElementController
     @Override
     public void mousePressed(MouseEvent e)
     {
-        Board board = getInstance().getBoard();
-        Tree tree = getInstance().getTree();
-        TreeView treeView = GameBoardFacade.getInstance().getLegupUI().getTreePanel().getTreeView();
-        BoardView boardView = getInstance().getLegupUI().getBoardView();
-        dragStart = (TreeTentElementView) boardView.getElement(e.getPoint());
-        lastCellPressed = (TreeTentElementView) boardView.getElement(e.getPoint());
+//        Board board = getInstance().getBoard();
+//        Tree tree = getInstance().getTree();
+//        TreeView treeView = GameBoardFacade.getInstance().getLegupUI().getTreePanel().getTreeView();
+//        BoardView boardView = getInstance().getLegupUI().getBoardView();
+//        dragStart = (TreeTentElementView) boardView.getElement(e.getPoint());
+//        lastCellPressed = (TreeTentElementView) boardView.getElement(e.getPoint());
     }
 
     @Override
@@ -55,58 +49,64 @@ public class TreeTentController extends ElementController
     @Override
     public void mouseReleased(MouseEvent e)
     {
-        TreeTentElementView dragEnd = (TreeTentElementView) boardView.getElement(e.getPoint());
-        TreeView treeView = GameBoardFacade.getInstance().getLegupUI().getTreePanel().getTreeView();
-        BoardView boardView = getInstance().getLegupUI().getBoardView();
-        TreeTentBoard board = (TreeTentBoard)getInstance().getBoard();
-        TreeTentElementView element = (TreeTentElementView) boardView.getElement(e.getPoint());
-        if(lastCellPressed != null && element != null)
-        {
-            TreeTentLine line = new TreeTentLine((TreeTentCell) lastCellPressed.getElement(), (TreeTentCell) element.getElement());
-            board.getLines().add(line);
-            board.getModifiedData().add(line);
-            boardView.onBoardChanged(board);
-        }
+        super.mouseReleased(e);
+//        TreeTentElementView dragEnd = (TreeTentElementView) boardView.getElement(e.getPoint());
+//        TreeView treeView = GameBoardFacade.getInstance().getLegupUI().getTreePanel().getTreeView();
+//        BoardView boardView = getInstance().getLegupUI().getBoardView();
+//        TreeTentBoard board = (TreeTentBoard)getInstance().getBoard();
+//        TreeTentElementView element = (TreeTentElementView) boardView.getElement(e.getPoint());
+//        if(lastCellPressed != null && element != null)
+//        {
+//            TreeTentLine line = new TreeTentLine((TreeTentCell) lastCellPressed.getElement(), (TreeTentCell) element.getElement());
+//            board.getLines().add(line);
+//            board.getModifiedData().add(line);
+//            boardView.onBoardChanged(board);
+//        }
     }
     @Override
-    public void changeCell(MouseEvent e, Element data)
+    public void changeCell(MouseEvent e, Element element)
     {
-        TreeTentCell cell = (TreeTentCell)data;
-        if(e.getButton() == MouseEvent.BUTTON1)
-        {
-            if(e.isControlDown())
-            {
-                this.boardView.getSelectionPopupMenu().show(boardView, this.boardView.getCanvas().getX() + e.getX(), this.boardView.getCanvas().getY() + e.getY());
-            }
-            else
-            {
-                if(cell.getData() == 0)
-                {
-                    data.setData(2);
+        if(element instanceof TreeTentCell) {
+            TreeTentCell cell = (TreeTentCell) element;
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                if (cell.getData() >= 3) {
+                    cell.setData(0);
+                } else {
+                    cell.setData(cell.getData() + 1);
                 }
-                else if(cell.getData() == 2)
-                {
-                    data.setData(3);
-                }
-                else
-                {
-                    data.setData(0);
+            } else if (e.getButton() == MouseEvent.BUTTON3) {
+                if (cell.getData() <= 0) {
+                    cell.setData(3);
+                } else {
+                    cell.setData(cell.getData() - 1);
                 }
             }
         }
-        else if(e.getButton() == MouseEvent.BUTTON3)
+        else
         {
-            if(cell.getData() == 0)
+            TreeTentClue clue = (TreeTentClue) element;
+            int max;
+            if(clue.getType() == TreeTentType.CLUE_EAST)
             {
-                data.setData(3);
-            }
-            else if(cell.getData() == 2)
-            {
-                data.setData(0);
+                max = boardView.getHeight();
             }
             else
             {
-                data.setData(2);
+                max = boardView.getWidth();
+            }
+
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                if (clue.getData() >= max) {
+                    clue.setData(0);
+                } else {
+                    clue.setData(clue.getData() + 1);
+                }
+            } else if (e.getButton() == MouseEvent.BUTTON3) {
+                if (clue.getData() <= 0) {
+                    clue.setData(max);
+                } else {
+                    clue.setData(clue.getData() - 1);
+                }
             }
         }
     }

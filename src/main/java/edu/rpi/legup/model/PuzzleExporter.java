@@ -44,10 +44,6 @@ public abstract class PuzzleExporter
             legupElement.appendChild(puzzleElement);
 
             puzzleElement.appendChild(createBoardElement(newDocument));
-            if(true)
-            {
-                puzzleElement.appendChild(createProofElement(newDocument));
-            }
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();

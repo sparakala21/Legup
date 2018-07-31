@@ -20,33 +20,14 @@ public class NurikabeController extends ElementController
             }
             else
             {
-                if(cell.getData() == -2)
-                {
-                    data.setData(0);
-                }
-                else if(cell.getData() == 0)
-                {
-                    data.setData(-1);
-                }
-                else
-                {
-                    data.setData(-2);
-                }
+                data.setData((Integer)data.getData() + 1);
             }
         }
         else if(e.getButton() == MouseEvent.BUTTON3)
         {
-            if(cell.getData() == -2)
+            if((Integer)data.getData() > -2)
             {
-                data.setData(-1);
-            }
-            else if(cell.getData() == 0)
-            {
-                data.setData(-2);
-            }
-            else
-            {
-                data.setData(0);
+                data.setData((Integer)data.getData() - 1);
             }
         }
     }

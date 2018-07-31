@@ -3,6 +3,7 @@ package edu.rpi.legup.puzzle.treetent;
 import edu.rpi.legup.model.gameboard.Element;
 import edu.rpi.legup.model.gameboard.GridBoard;
 
+import javax.naming.ldap.PagedResultsControl;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -32,6 +33,37 @@ public class TreeTentBoard extends GridBoard
         for(int i = 0; i < width; i++)
         {
             south.add(null);
+        }
+    }
+
+    /**
+     * Gets a specific Element on this board
+     *
+     * @param element equivalent element
+     * @return equivalent element on this board
+     */
+    public Element getElementData(Element element)
+    {
+        if(element instanceof TreeTentCell)
+        {
+            int index = element.getIndex();
+            return index < elementData.size() ? elementData.get(index) : null;
+        }
+        else if(element instanceof TreeTentClue)
+        {
+            TreeTentClue clue = (TreeTentClue)element;
+            if(clue.getType() == TreeTentType.CLUE_EAST)
+            {
+                return east.get(clue.getIndex() - 1);
+            }
+            else
+            {
+                return south.get(clue.getIndex() - 1);
+            }
+        }
+        else
+        {
+            return null;
         }
     }
 

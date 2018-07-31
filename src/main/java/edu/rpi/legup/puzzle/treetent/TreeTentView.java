@@ -3,6 +3,7 @@ package edu.rpi.legup.puzzle.treetent;
 import edu.rpi.legup.controller.BoardController;
 import edu.rpi.legup.model.gameboard.Board;
 import edu.rpi.legup.model.gameboard.Element;
+import edu.rpi.legup.ui.boardview.ElementView;
 import edu.rpi.legup.ui.boardview.GridBoardView;
 
 import javax.imageio.ImageIO;
@@ -90,6 +91,40 @@ public class TreeTentView extends GridBoardView
             northClues.add(col);
             southClues.add(clue);
         }
+    }
+
+    /**
+     * Gets the GridElementView from the location specified or
+     * null if one does not exists at that location
+     *
+     * @param point location on the viewport
+     * @return GridElementView at the specified location
+     */
+    public ElementView getElement(Point point)
+    {
+        Point scaledPoint = new Point((int)Math.round(point.x / getScale()), (int)Math.round(point.y / getScale()));
+        for(ElementView elementView: elementViews)
+        {
+            if(elementView.isWithinBounds(scaledPoint))
+            {
+                return elementView;
+            }
+        }
+        for(ElementView elementView : eastClues)
+        {
+            if(elementView.isWithinBounds(scaledPoint))
+            {
+                return elementView;
+            }
+        }
+        for(ElementView elementView : southClues)
+        {
+            if(elementView.isWithinBounds(scaledPoint))
+            {
+                return elementView;
+            }
+        }
+        return null;
     }
 
     public ArrayList<TreeTentLineView> getLineViews()

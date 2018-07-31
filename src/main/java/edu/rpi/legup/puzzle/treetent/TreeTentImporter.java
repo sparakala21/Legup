@@ -85,67 +85,19 @@ public class TreeTentImporter extends PuzzleImporter
                 }
             }
 
-            NodeList axes = boardElement.getElementsByTagName("axis");
-            if(axes.getLength() != 2)
+            for(int i = 0; i < treeTentBoard.getHeight(); i++)
             {
-                throw new InvalidFileFormatException("TreeTent Importer: cannot find axes");
-            }
+                int value = 0;
+                int index = i + 1;
 
-            Element axis1 = (Element) axes.item(0);
-            Element axis2 = (Element) axes.item(1);
-
-            if(!axis1.hasAttribute("side") || !axis1.hasAttribute("side"))
-            {
-                throw new InvalidFileFormatException("TreeTent Importer: side attribute of axis not specified");
-            }
-            String side1 = axis1.getAttribute("side");
-            String side2 = axis2.getAttribute("side");
-            if(side1.equalsIgnoreCase(side2) || !(side1.equalsIgnoreCase("east") || side1.equalsIgnoreCase("south")) ||
-                    !(side2.equalsIgnoreCase("east") || side2.equalsIgnoreCase("south")))
-            {
-                throw new InvalidFileFormatException("TreeTent Importer: axes must be different and be {east | south}");
-            }
-            NodeList eastClues = side1.equalsIgnoreCase("east") ? axis1.getElementsByTagName("clue") : axis2.getElementsByTagName("clue");
-            NodeList southClues = side1.equalsIgnoreCase("south") ? axis1.getElementsByTagName("clue") : axis2.getElementsByTagName("clue");
-
-            if(eastClues.getLength() != treeTentBoard.getHeight() || southClues.getLength() != treeTentBoard.getWidth())
-            {
-                throw new InvalidFileFormatException("TreeTent Importer: there must be same number of clues as the dimension of the board");
-            }
-
-            for(int i = 0; i < eastClues.getLength(); i++)
-            {
-                Element clue = (Element)eastClues.item(i);
-                int value = Integer.valueOf(clue.getAttribute("value"));
-                int index = TreeTentClue.colStringToColNum(clue.getAttribute("index"));
-
-                if(index - 1< 0 || index - 1> treeTentBoard.getHeight())
-                {
-                    throw new InvalidFileFormatException("TreeTent Importer: clue index out of bounds");
-                }
-
-                if(treeTentBoard.getEast().get(index - 1) != null)
-                {
-                    throw new InvalidFileFormatException("TreeTent Importer: duplicate clue index");
-                }
                 treeTentBoard.getEast().set(index - 1, new TreeTentClue(value, index, TreeTentType.CLUE_EAST));
             }
 
-            for(int i = 0; i < southClues.getLength(); i++)
+            for(int i = 0; i < treeTentBoard.getWidth(); i++)
             {
-                Element clue = (Element)southClues.item(i);
-                int value = Integer.valueOf(clue.getAttribute("value"));
-                int index = Integer.valueOf(clue.getAttribute("index"));
+                int value = 0;
+                int index = i + 1;
 
-                if(index - 1 < 0 || index - 1> treeTentBoard.getWidth())
-                {
-                    throw new InvalidFileFormatException("TreeTent Importer: clue index out of bounds");
-                }
-
-                if(treeTentBoard.getSouth().get(index - 1) != null)
-                {
-                    throw new InvalidFileFormatException("TreeTent Importer: duplicate clue index");
-                }
                 treeTentBoard.getSouth().set(index - 1, new TreeTentClue(value, index, TreeTentType.CLUE_SOUTH));
             }
 
