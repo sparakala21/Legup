@@ -72,8 +72,6 @@ public class TreeView extends DynamicViewer implements ITreeListener
         super(treeController);
         currentStateBoxes = new ArrayList<>();
         collapseColorHash = new HashMap<>();
-        setSize(dimension = new Dimension(100, 200));
-        setPreferredSize(new Dimension(640, 160));
 
         viewMap = new HashMap<>();
 
@@ -164,20 +162,7 @@ public class TreeView extends DynamicViewer implements ITreeListener
     // recursively computes the bounding rectangle of the tree
     private Rectangle getTreeBounds(TreeNodeView nodeView)
     {
-        // get the position of the current node and add padding
-        Rectangle b = new Rectangle(nodeView.getLocation());
-        b.grow(2 * NODE_RADIUS, 2 * NODE_RADIUS);
-        // Adjust the rectangle so that rule popups aren't cut off
-        float scale = (100 / (float) getZoom());
-        b.setBounds((int) b.getX() - (int) (100 * scale), (int) b.getY(), (int) b.getWidth() + (int) (400 * scale), (int) b.getHeight() + (int) (200 * scale));
-        // get the relevant child nodes
-        //ArrayList<TreeTransitionView> childrenViews = nodeView.isCollapsed() ? getLastCollapsed(nodeView).getChildrenViews() : nodeView.getChildrenViews();
-        // compute the union of the child bounding boxes recursively
-//        for(int c = 0; c < childrenViews.size(); c++)
-//        {
-//            b = b.union(getTreeBounds(childrenViews.get(c).getChildView()));
-//        }
-        return b;
+        return null;
     }
 
     public void updateTreeView(Tree tree)
@@ -187,7 +172,6 @@ public class TreeView extends DynamicViewer implements ITreeListener
         {
             selection.newSelection(new TreeNodeView(tree.getRootNode()));
         }
-        repaint();
     }
 
     /**
@@ -206,7 +190,6 @@ public class TreeView extends DynamicViewer implements ITreeListener
         {
             return;
         }
-        setSize(bounds.getSize());
     }
 
     public void reset()
@@ -219,13 +202,13 @@ public class TreeView extends DynamicViewer implements ITreeListener
 
     public void zoomFit()
     {
-        zoomTo(1.0);
-        updateTreeSize();
-        double fitwidth = (viewport.getWidth() - 8.0) / (getSize().width - 200);
-        double fitheight = (viewport.getHeight() - 8.0) / (getSize().height - 120);
-        // choose the smaller of the two and zoom
-        zoomTo((fitwidth < fitheight) ? fitwidth : fitheight);
-        viewport.setViewPosition(new Point(0, 0));
+//        zoomTo(1.0);
+//        updateTreeSize();
+//        double fitwidth = (viewport.getWidth() - 8.0) / (getSize().width - 200);
+//        double fitheight = (viewport.getHeight() - 8.0) / (getSize().height - 120);
+//        // choose the smaller of the two and zoom
+//        zoomTo((fitwidth < fitheight) ? fitwidth : fitheight);
+//        viewport.setViewPosition(new Point(0, 0));
     }
 
     public void draw(Graphics2D graphics2D)
@@ -240,8 +223,9 @@ public class TreeView extends DynamicViewer implements ITreeListener
 
             newReDraw(graphics2D);
             //drawTree(graphics2D, tree);
-            dimension.width += BORDER_SPACING;
-            setSize(dimension);
+//            dimension.width += BORDER_SPACING;
+//            setSize(dimension);
+
 //            graphics2D.drawRect(0,0, dimension.width, dimension.height);
 
             if(selection.getHover() != null)
@@ -253,8 +237,7 @@ public class TreeView extends DynamicViewer implements ITreeListener
 
     public void zoomReset()
     {
-        zoomTo(1.0);
-        viewport.setViewPosition(new Point(0, 0));
+//        viewport.setViewPosition(new Point(0, 0));
     }
 
     protected void mouseDraggedAt(Point point, MouseEvent e)
@@ -333,7 +316,7 @@ public class TreeView extends DynamicViewer implements ITreeListener
     }
 
     /**
-     * When the edu.rpi.legup.user collapses the nodes, find out which gameboard state was collapsed. The gameboard state can then be used to find out
+     * When the user collapses the nodes, find out which gameboard state was collapsed. The gameboard state can then be used to find out
      * the overall color for the collapsed transition(s)
      *
      * @param lastCollapsed TreeNode before the collapsed transition(s)
@@ -391,7 +374,7 @@ public class TreeView extends DynamicViewer implements ITreeListener
     }
 
     /**
-     * When the edu.rpi.legup.user hovers over the transition, draws the corresponding rules image
+     * When the user hovers over the transition, draws the corresponding rules image
      *
      * @param g the graphics to use to draw
      */
@@ -405,37 +388,32 @@ public class TreeView extends DynamicViewer implements ITreeListener
             int w, h;
             g.setStroke(thin);
 
-            w = (int) (100 * (100 / (float) getZoom()));
-            h = (int) (100 * (100 / (float) getZoom()));
-            float scale = (100 / (float) getZoom());
-            int offset = (int) (scale * 30);
-
-            JViewport vp = getViewport();
-            BufferedImage image = new BufferedImage(vp.getWidth(), vp.getHeight(), BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g_tmp = image.createGraphics();
+//            JViewport vp = getViewport();
+//            BufferedImage image = new BufferedImage(vp.getWidth(), vp.getHeight(), BufferedImage.TYPE_INT_ARGB);
+//            Graphics2D g_tmp = image.createGraphics();
             int v_offset = 0;
 
-            if(transition.isJustified())
-            {
-                g_tmp.setColor(Color.black);
-                String[] tmp = {rule.getRuleName()};
-                v_offset = 10 + tmp.length * 14;
-                for(int c1 = 0; c1 < tmp.length; c1++)
-                {
-                    g_tmp.drawString(tmp[c1], 0, (14 * c1) + 10);
-                }
-                g_tmp.setColor(Color.gray);
-                g_tmp.drawRect(0, v_offset, 100, 100);
-            }
-
-            if(rule != null)
-            {
-                g_tmp.drawImage(rule.getImageIcon().getImage(), 0, v_offset, null);
-            }
-            Point mousePoint = selection.getMousePoint();
-            int scaledWidth = (int) (scale * vp.getWidth());
-            int scaledHeight = (int) (scale * vp.getHeight());
-            g.drawImage(image, mousePoint.x, mousePoint.y, scaledWidth, scaledHeight, null);
+//            if(transition.isJustified())
+//            {
+//                g_tmp.setColor(Color.black);
+//                String[] tmp = {rule.getRuleName()};
+//                v_offset = 10 + tmp.length * 14;
+//                for(int c1 = 0; c1 < tmp.length; c1++)
+//                {
+//                    g_tmp.drawString(tmp[c1], 0, (14 * c1) + 10);
+//                }
+//                g_tmp.setColor(Color.gray);
+//                g_tmp.drawRect(0, v_offset, 100, 100);
+//            }
+//
+//            if(rule != null)
+//            {
+//                g_tmp.drawImage(rule.getImageIcon().getImage(), 0, v_offset, null);
+//            }
+//            Point mousePoint = selection.getMousePoint();
+//            int scaledWidth = (int) (scale * vp.getWidth());
+//            int scaledHeight = (int) (scale * vp.getHeight());
+//            g.drawImage(image, mousePoint.x, mousePoint.y, scaledWidth, scaledHeight, null);
         }
     }
 
@@ -463,7 +441,6 @@ public class TreeView extends DynamicViewer implements ITreeListener
         {
             addTreeTransition((TreeTransition) treeElement);
         }
-        repaint();
     }
 
     /**
@@ -490,7 +467,6 @@ public class TreeView extends DynamicViewer implements ITreeListener
             transView.getParentViews().forEach(n -> n.removeChildrenView(transView));
             removeTreeTransition(trans);
         }
-        repaint();
     }
 
     /**
@@ -505,7 +481,6 @@ public class TreeView extends DynamicViewer implements ITreeListener
         selection.getSelectedViews().forEach(v -> v.setSelected(true));
 
         this.selection = selection;
-        repaint();
     }
 
     /**

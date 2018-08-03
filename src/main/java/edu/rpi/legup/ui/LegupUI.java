@@ -317,6 +317,11 @@ public class LegupUI extends JFrame implements WindowListener, IHistoryListener
         toolBarButtons[ToolbarName.CHECK.ordinal()].addActionListener((ActionEvent e)  -> checkProof());
         toolBarButtons[ToolbarName.SUBMIT.ordinal()].addActionListener((ActionEvent e)  -> {});
         toolBarButtons[ToolbarName.DIRECTIONS.ordinal()].addActionListener((ActionEvent e)  -> {});
+//        toolBarButtons[ToolbarName.ZOOM_IN.ordinal()].addActionListener((ActionEvent e)  -> boardView.zoomIn());
+//        toolBarButtons[ToolbarName.ZOOM_OUT.ordinal()].addActionListener((ActionEvent e)  -> boardView.zoomOut());
+//        toolBarButtons[ToolbarName.NORMAL_ZOOM.ordinal()].addActionListener((ActionEvent e)  -> boardView.zoomTo(1.0) );
+//        toolBarButtons[ToolbarName.BEST_FIT.ordinal()].addActionListener((ActionEvent e)  -> boardView.zoomFit());
+        toolBarButtons[ToolbarName.ANNOTATIONS.ordinal()].addActionListener((ActionEvent e)  -> {  });
         toolBarButtons[ToolbarName.ZOOM_IN.ordinal()].addActionListener((ActionEvent e)  -> boardView.zoomIn());
         toolBarButtons[ToolbarName.ZOOM_OUT.ordinal()].addActionListener((ActionEvent e)  -> boardView.zoomOut());
         toolBarButtons[ToolbarName.NORMAL_ZOOM.ordinal()].addActionListener((ActionEvent e)  -> boardView.zoomTo(1.0) );
@@ -336,7 +341,7 @@ public class LegupUI extends JFrame implements WindowListener, IHistoryListener
     }
 
     /**
-     * Sets the main content for the edu.rpi.legup.user interface
+     * Sets the main content for the user interface
      */
     protected void setupContent()
     {
@@ -357,7 +362,7 @@ public class LegupUI extends JFrame implements WindowListener, IHistoryListener
 
         JPanel boardPanel = new JPanel(new BorderLayout());
         topHalfPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, ruleFrame, emptyBoard);
-        mainPanel = new JSplitPane(JSplitPane.VERTICAL_SPLIT, true, topHalfPanel, treePanel);
+//        mainPanel = new JSplitPane(JSplitPane.VERTICAL_SPLIT, true, topHalfPanel, treePanel);
         topHalfPanel.setPreferredSize(new Dimension(600, 400));
         mainPanel.setPreferredSize(new Dimension(600, 600));
 
@@ -532,7 +537,7 @@ public class LegupUI extends JFrame implements WindowListener, IHistoryListener
                 fileChooser.setTitle("Select Proof");
                 fileChooser.setVisible(true);
                 String filename = fileChooser.getFile();
-                if(filename != null) // edu.rpi.legup.user didn't pressed cancel
+                if(filename != null) // user didn't pressed cancel
                 {
                     String savePath = fileChooser.getDirectory() + filename;
                     try(PrintStream ps = new PrintStream(savePath))
@@ -582,7 +587,7 @@ public class LegupUI extends JFrame implements WindowListener, IHistoryListener
 
     private void directions()
     {
-        JOptionPane.showMessageDialog(null, "For ever move you make, you must provide a rules for it (located in the Rules panel).\n" + "While working on the edu.rpi.legup.puzzle, you may click on the \"Check\" button to test your proof for correctness.", "Directions", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, "For ever move you make, you must provide a rules for it (located in the Rules panel).\n" + "While working on the puzzle, you may click on the \"Check\" button to test your proof for correctness.", "Directions", JOptionPane.PLAIN_MESSAGE);
     }
 
     private void showAll()
@@ -601,8 +606,7 @@ public class LegupUI extends JFrame implements WindowListener, IHistoryListener
 
     private void repaintAll()
     {
-        boardView.repaint();
-        treePanel.repaint();
+
     }
 
     public void showStatus(String status, boolean error)
@@ -626,7 +630,7 @@ public class LegupUI extends JFrame implements WindowListener, IHistoryListener
         GameBoardFacade facade = GameBoardFacade.getInstance();
         if(facade.getBoard() != null)
         {
-            if(noquit("opening a new edu.rpi.legup.puzzle?")) // !noquit or noquit?
+            if(noquit("opening a new puzzle?")) // !noquit or noquit?
             {
                 return;
             }
@@ -658,12 +662,12 @@ public class LegupUI extends JFrame implements WindowListener, IHistoryListener
         if(newPuzzle.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
         {
             facade.loadBoardFile(newPuzzle.getSelectedFile().getAbsolutePath());
-            Puzzle edu.rpi.legup.puzzle = facade.getPuzzleModule();
-            if(edu.rpi.legup.puzzle != null)
+            Puzzle puzzle = facade.getPuzzleModule();
+            if(puzzle != null)
             {
-                //getJustificationFrame().setJustifications(edu.rpi.legup.puzzle);
+                //getJustificationFrame().setJustifications(puzzle);
                 // AI setup
-                //myAI.setBoard(edu.rpi.legup.puzzle);
+                //myAI.setBoard(puzzle);
             }
             // show them all
             showAll();
@@ -801,24 +805,24 @@ public class LegupUI extends JFrame implements WindowListener, IHistoryListener
 
     public void setPuzzleView(Puzzle puzzle)
     {
-        this.boardView = puzzle.getBoardView();
-        this.topHalfPanel.setRightComponent(boardView);
-        this.topHalfPanel.setVisible(true);
-
-        this.treePanel.getTreeView().resetView();
-        this.treePanel.getTreeView().setTree(puzzle.getTree());
-
-        puzzle.addTreeListener(treePanel.getTreeView());
-        puzzle.addBoardListener(puzzle.getBoardView());
-
-        ruleFrame.getBasicRulePanel().setRules(puzzle.getBasicRules());
-        ruleFrame.getCasePanel().setRules(puzzle.getCaseRules());
-        ruleFrame.getContradictionPanel().setRules(puzzle.getContradictionRules());
-
-        toolBarButtons[ToolbarName.CHECK.ordinal()].setEnabled(true);
-        toolBarButtons[ToolbarName.SAVE.ordinal()].setEnabled(true);
-
-        reloadGui();
+//        this.boardView = puzzle.getBoardView();
+//        this.topHalfPanel.setRightComponent(boardView);
+//        this.topHalfPanel.setVisible(true);
+//
+//        this.treePanel.getTreeView().resetView();
+//        this.treePanel.getTreeView().setTree(puzzle.getTree());
+//
+//        puzzle.addTreeListener(treePanel.getTreeView());
+//        puzzle.addBoardListener(puzzle.getBoardView());
+//
+//        ruleFrame.getBasicRulePanel().setRules(puzzle.getBasicRules());
+//        ruleFrame.getCasePanel().setRules(puzzle.getCaseRules());
+//        ruleFrame.getContradictionPanel().setRules(puzzle.getContradictionRules());
+//
+//        toolBarButtons[ToolbarName.CHECK.ordinal()].setEnabled(true);
+//        toolBarButtons[ToolbarName.SAVE.ordinal()].setEnabled(true);
+//
+//        reloadGui();
     }
 
     public BoardView getBoardView()
@@ -867,7 +871,7 @@ public class LegupUI extends JFrame implements WindowListener, IHistoryListener
     }
 
     /**
-     * Called when a action is pushed onto the edu.rpi.legup.history stack
+     * Called when a action is pushed onto the history stack
      *
      * @param command action to push onto the stack
      */
@@ -912,7 +916,7 @@ public class LegupUI extends JFrame implements WindowListener, IHistoryListener
     }
 
     /**
-     * Called when the edu.rpi.legup.history is cleared
+     * Called when the history is cleared
      */
     @Override
     public void onClearHistory()

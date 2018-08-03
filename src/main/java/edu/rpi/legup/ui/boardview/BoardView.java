@@ -40,9 +40,6 @@ public abstract class BoardView extends DynamicViewer implements IBoardListener
         setBorder(titleBoard);
 
         elementController.setBoardView(this);
-        addMouseListener(elementController);
-        addMouseMotionListener(elementController);
-        getViewport().addKeyListener(elementController);
     }
 
     /**
@@ -149,7 +146,6 @@ public abstract class BoardView extends DynamicViewer implements IBoardListener
     public void onBoardChanged(Board board)
     {
         setBoard(board);
-        repaint();
     }
 
     /**
@@ -177,11 +173,7 @@ public abstract class BoardView extends DynamicViewer implements IBoardListener
         return elementController;
     }
 
-    @Override
-    public void draw(Graphics2D graphics2D)
-    {
-        drawBoard(graphics2D);
-    }
+
 
     public void drawBoard(Graphics2D graphics2D)
     {
@@ -199,7 +191,7 @@ public abstract class BoardView extends DynamicViewer implements IBoardListener
     @Override
     public void onBoardDataChanged(PuzzleElement puzzleElement)
     {
-        repaint();
+        
     }
 
     public abstract DataSelectionView getSelectionPopupMenu();

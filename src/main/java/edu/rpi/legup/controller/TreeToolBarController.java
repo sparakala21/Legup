@@ -77,13 +77,10 @@ public class TreeToolBarController implements ActionListener
         {
             //treePanel.collapseStates();
         }
-        else if(button.getToolBarName() == TreeToolBarName.ZOOM_IN)
-        {
-            treePanel.getTreeView().zoomIn();
+        else if(button.getToolBarName() == TreeToolBarName.ZOOM_IN) {
         }
         else if(button.getToolBarName() == TreeToolBarName.ZOOM_OUT)
         {
-            treePanel.getTreeView().zoomOut();
         }
         else if(button.getToolBarName() == TreeToolBarName.ZOOM_RESET)
         {

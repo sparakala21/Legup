@@ -1,5 +1,7 @@
 package edu.rpi.legup.controller;
 
+import javafx.scene.Cursor;
+import ui.DynamicViewer;
 import edu.rpi.legup.ui.DynamicViewer;
 
 import javax.swing.*;
@@ -13,8 +15,8 @@ public abstract class Controller implements MouseMotionListener, MouseListener, 
     private boolean pan;
 
     /**
-     * Controller Constructor - creates a edu.rpi.legup.controller object to listen
-     * to edu.rpi.legup.ui events from a DynamicViewer
+     * Controller Constructor - creates a controller object to listen
+     * to ui events from a DynamicViewer
      */
     public Controller()
     {
@@ -52,7 +54,7 @@ public abstract class Controller implements MouseMotionListener, MouseListener, 
             pan = true;
             x = e.getX();
             y = e.getY();
-            viewer.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+            viewer.setCursor(javafx.scene.Cursor.CLOSED_HAND);
         }
     }
 
@@ -68,7 +70,7 @@ public abstract class Controller implements MouseMotionListener, MouseListener, 
         if(e.getButton() == MouseEvent.BUTTON2)
         {
             pan = false;
-            viewer.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            viewer.setCursor(Cursor.DEFAULT);
         }
     }
 

@@ -36,7 +36,6 @@ public class GridBoardView extends BoardView
     private GridBoardView(BoardController boardController, ElementController elementController)
     {
         super(boardController, elementController);
-        setBackground( new Color(0xE0E0E0) );
     }
 
     /**
@@ -64,10 +63,9 @@ public class GridBoardView extends BoardView
      */
     public GridElementView getElement(Point point)
     {
-        Point scaledPoint = new Point((int)Math.round(point.x / getScale()), (int)Math.round(point.y / getScale()));
         for(ElementView element: elementViews)
         {
-            if(element.isWithinBounds(scaledPoint))
+            if(element.isWithinBounds(point))
             {
                 return (GridElementView) element;
             }
@@ -81,8 +79,6 @@ public class GridBoardView extends BoardView
     @Override
     public void initSize()
     {
-        setSize( getProperSize() );
-        zoomFit();
     }
 
     /**

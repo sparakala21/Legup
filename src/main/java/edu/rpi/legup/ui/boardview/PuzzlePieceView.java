@@ -52,7 +52,7 @@ public class PuzzlePieceView implements Shape
         Rectangle bounds = new Rectangle();
         for(ElementView element: elementViews)
         {
-            bounds.union(element.getBounds());
+
         }
         return null;
     }
@@ -81,10 +81,6 @@ public class PuzzlePieceView implements Shape
     {
         for(ElementView element: elementViews)
         {
-            if(element.contains(p))
-            {
-                return true;
-            }
         }
         return false;
     }
@@ -107,10 +103,7 @@ public class PuzzlePieceView implements Shape
     {
         for(ElementView element: elementViews)
         {
-            if(element.intersects(r))
-            {
-                return true;
-            }
+
         }
         return false;
     }
@@ -120,10 +113,7 @@ public class PuzzlePieceView implements Shape
     {
         for(ElementView element: elementViews)
         {
-            if(element.contains(x, y, w, h))
-            {
-                return true;
-            }
+
         }
         return false;
     }
@@ -133,10 +123,7 @@ public class PuzzlePieceView implements Shape
     {
         for(ElementView element: elementViews)
         {
-            if(element.contains(r))
-            {
-                return true;
-            }
+
         }
         return false;
     }

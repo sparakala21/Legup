@@ -57,7 +57,7 @@ public class TreeController extends Controller
         super.mouseReleased(e);
 
         TreeView treeView = (TreeView)viewer;
-        Point point = treeView.getActualPoint(e.getPoint());
+        Point point = null;//treeView.getActualPoint(e.getPoint());
         TreeElementView elementView = treeView.getTreeElementView(point);
         Puzzle puzzle = getInstance().getPuzzleModule();
         TreeViewSelection selection = treeView.getSelection();
@@ -89,7 +89,7 @@ public class TreeController extends Controller
     public void mouseEntered(MouseEvent e)
     {
         TreeView treeView = (TreeView)viewer;
-        Point point = treeView.getActualPoint(e.getPoint());
+        Point point = null;//treeView.getActualPoint(e.getPoint());
         Tree tree = getInstance().getTree();
         BoardView boardView = getInstance().getLegupUI().getBoardView();
         TreeElementView elementView = treeView.getTreeElementView(point);
@@ -109,7 +109,7 @@ public class TreeController extends Controller
     public void mouseExited(MouseEvent e)
     {
         TreeView treeView = (TreeView)viewer;
-        Point point = treeView.getActualPoint(e.getPoint());
+        Point point = null;//treeView.getActualPoint(e.getPoint());
         TreeElementView elementView = treeView.getTreeElementView(point);
         Puzzle puzzle = getInstance().getPuzzleModule();
         TreeViewSelection selection = treeView.getSelection();
@@ -142,13 +142,12 @@ public class TreeController extends Controller
     public void mouseMoved(MouseEvent e)
     {
         TreeView treeView = (TreeView)viewer;
-        Point point = treeView.getActualPoint(e.getPoint());
+        Point point = null;//treeView.getActualPoint(e.getPoint());
         TreeElementView treeNodeView = treeView.getTreeElementView(point);
         Puzzle puzzle = getInstance().getPuzzleModule();
         if(puzzle != null)
         {
             TreeViewSelection selection = treeView.getSelection();
-            selection.setMousePoint(treeView.getActualPoint(e.getPoint()));
             if(treeNodeView != null)
             {
                 if(treeNodeView != selection.getHover())

@@ -56,30 +56,6 @@ public class ElementSelection
         selection.clear();
     }
 
-    public ElementView getHover()
-    {
-        return hover;
-    }
-
-    public void newHover(ElementView newHovered)
-    {
-        newHovered.setHover(true);
-        if(hover != null)
-        {
-            hover.setHover(false);
-        }
-        hover = newHovered;
-    }
-
-    public void clearHover()
-    {
-        if(hover != null)
-        {
-            hover.setHover(false);
-            hover = null;
-        }
-    }
-
     public Point getMousePoint()
     {
         return mousePoint;

@@ -31,7 +31,6 @@ public class BattleShipView extends GridBoardView {
         for (ElementView element: elementViews) {
             element.setPuzzleElement(battleShipBoard.getPuzzleElement(element.getPuzzleElement()));
         }
-        repaint();
     }
 
     @Override
