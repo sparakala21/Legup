@@ -22,7 +22,6 @@ public class ZoomWidget extends JLabel
     {
         public void mouseClicked(MouseEvent e)
         {
-            palette.slider.setValue(parent.getZoom());
             palette.show(e.getComponent(), 0, 0);//e.getX(), e.getY() );
         }
     };
@@ -62,7 +61,7 @@ public class ZoomWidget extends JLabel
         {
             if(slider.getValueIsAdjusting())
             {
-                parent.zoomTo((double) slider.getValue() / 100.0);
+
             }
         }
     }

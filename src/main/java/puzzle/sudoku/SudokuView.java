@@ -43,7 +43,6 @@ public class SudokuView extends GridBoardView
         return (SudokuElementView ) super.getElement(index);
     }
 
-    @Override
     public void draw(Graphics2D graphics2D)
     {
         int minorSize = (int)Math.sqrt(gridSize.width);
@@ -106,10 +105,10 @@ public class SudokuView extends GridBoardView
                 SudokuElementView element = new SudokuElementView(new SudokuCell((r - 1) * 3 + c, null, 0));
                 element.setSize(new Dimension(32, 32));
                 element.setLocation(new Point(0, 0));
-                SelectionItemView item = new SelectionItemView(element.getElement(), new ImageIcon(element.getImage()));
-                item.addActionListener(elementController);
-                item.setHorizontalTextPosition(SwingConstants.CENTER);
-                selectionView.add(item);
+//                SelectionItemView item = new SelectionItemView(element.getElement(), new ImageIcon(element.getImage()));
+//                item.addActionListener(elementController);
+//                item.setHorizontalTextPosition(SwingConstants.CENTER);
+//                selectionView.add(item);
             }
         }
         return selectionView;

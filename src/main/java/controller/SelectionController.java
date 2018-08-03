@@ -54,14 +54,12 @@ public class SelectionController implements MouseListener, MouseMotionListener
     public void mouseEntered(MouseEvent e)
     {
         treeView.setNodeHover(treeNodeView);
-        treeView.invalidate();
     }
 
     @Override
     public void mouseExited(MouseEvent e)
     {
         treeView.setNodeHover(null);
-        treeView.invalidate();
     }
 
     @Override

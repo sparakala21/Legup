@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.Cursor;
 import ui.DynamicViewer;
 
 import javax.swing.*;
@@ -52,7 +53,7 @@ public abstract class Controller implements MouseMotionListener, MouseListener, 
             pan = true;
             x = e.getX();
             y = e.getY();
-            viewer.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+            viewer.setCursor(javafx.scene.Cursor.CLOSED_HAND);
         }
     }
 
@@ -68,7 +69,7 @@ public abstract class Controller implements MouseMotionListener, MouseListener, 
         if(e.getButton() == MouseEvent.BUTTON2)
         {
             pan = false;
-            viewer.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            viewer.setCursor(Cursor.DEFAULT);
         }
     }
 
@@ -102,15 +103,7 @@ public abstract class Controller implements MouseMotionListener, MouseListener, 
     @Override
     public void mouseDragged(MouseEvent e)
     {
-        if(pan)
-        {
-            JViewport viewport = viewer.getViewport();
-            Point position = viewer.getViewport().getViewPosition();
-            position.x += (x - e.getX());
-            position.y += (y - e.getY());
-            viewport.setViewPosition(position);
-            viewer.revalidate();
-        }
+
     }
 
     /**
@@ -132,13 +125,6 @@ public abstract class Controller implements MouseMotionListener, MouseListener, 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e)
     {
-        if(e.isControlDown())
-        {
-            viewer.zoom(e.getWheelRotation() * 2, e.getPoint());
-        }
-        else
-        {
-            viewer.zoom(e.getWheelRotation(), e.getPoint());
-        }
+
     }
 }

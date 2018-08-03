@@ -18,7 +18,6 @@ public abstract class ElementView extends Node
     private Color caseColor;
     private boolean showCasePicker;
     private boolean isCaseRulePickable;
-    private boolean isHover;
     private boolean isSelected;
 
     /**
@@ -33,7 +32,6 @@ public abstract class ElementView extends Node
         this.hoverColor = new Color(0,0,255,255);
         this.modifiedColor = new Color(0, 255,0,255);
         this.caseColor = new Color(0, 0,180,200);
-        this.isHover = false;
         this.isSelected = false;
         this.isCaseRulePickable = false;
     }
@@ -69,10 +67,6 @@ public abstract class ElementView extends Node
         if(showCasePicker && isCaseRulePickable)
         {
             drawCase(graphics2D);
-        }
-        if(isHover)
-        {
-            drawHover(graphics2D);
         }
     }
 
@@ -113,15 +107,6 @@ public abstract class ElementView extends Node
     {
         graphics2D.setColor(caseColor);
         graphics2D.fillRect(location.x + 1, location.y + 1, size.width - 2, size.height - 2);
-    }
-
-    public BufferedImage getImage()
-    {
-        BufferedImage image = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_RGB);
-        Graphics2D graphics2D = image.createGraphics();
-        drawElement(graphics2D);
-        graphics2D.dispose();
-        return image;
     }
 
     /**
@@ -259,26 +244,6 @@ public abstract class ElementView extends Node
     }
 
     /**
-     * Gets whether the element is currently being hovered over
-     *
-     * @return true if the element is currently being hover over, false otherwise
-     */
-    public boolean isHover()
-    {
-        return isHover;
-    }
-
-    /**
-     * Sets whether the element is being hover over
-     *
-     * @param hover true if the element is correctly being hover over, false otherwise
-     */
-    public void setHover(boolean hover)
-    {
-        isHover = hover;
-    }
-
-    /**
      * Gets whether the element is being selected
      *
      * @return tue if the element is currently selected, false otherwise
@@ -296,74 +261,5 @@ public abstract class ElementView extends Node
     public void setSelected(boolean selected)
     {
         isSelected = selected;
-    }
-
-    public JMenuItem getSelectionMenuItem()
-    {
-        JMenuItem item = new JMenuItem(element.getData() + "");
-        return item;
-    }
-
-    @Override
-    public boolean contains(double x, double y)
-    {
-        return x >= location.x && x <= location.x + size.width &&
-                y >= location.y && y <= location.y + size.height;
-    }
-
-    @Override
-    public boolean contains(Point2D point)
-    {
-        return contains(point.getX(), point.getY());
-    }
-
-    @Override
-    public boolean intersects(double x, double y, double width, double height)
-    {
-        return (x + width >= location.x && x <= location.x + size.width) ||
-                (y + height >= location.y && y <= location.y + size.height);
-    }
-
-    @Override
-    public boolean intersects(Rectangle2D rectangle2D)
-    {
-        return intersects(rectangle2D.getX(), rectangle2D.getY(), rectangle2D.getWidth(), rectangle2D.getHeight());
-    }
-
-    @Override
-    public boolean contains(double x, double y, double width, double height)
-    {
-        return (x + width >= location.x && x <= location.x + size.width) &&
-                (y + height >= location.y && y <= location.y + size.height);
-    }
-
-    @Override
-    public boolean contains(Rectangle2D rectangle2D)
-    {
-        return contains(rectangle2D.getX(), rectangle2D.getY(), rectangle2D.getWidth(), rectangle2D.getHeight());
-    }
-
-    @Override
-    public PathIterator getPathIterator(AffineTransform at)
-    {
-        return new Rectangle(location.x, location.y, size.width, size.height).getPathIterator(at);
-    }
-
-    @Override
-    public PathIterator getPathIterator(AffineTransform at, double flatness)
-    {
-        return new Rectangle(location.x, location.y, size.width, size.height).getPathIterator(at, flatness);
-    }
-
-    @Override
-    public Rectangle getBounds()
-    {
-        return new Rectangle(location.x, location.y, size.width, size.height);
-    }
-
-    @Override
-    public Rectangle2D getBounds2D()
-    {
-        return new Rectangle(location.x, location.y, size.width, size.height);
     }
 }

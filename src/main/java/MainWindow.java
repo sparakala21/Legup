@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -17,6 +18,9 @@ public class MainWindow {
 
     @FXML
     private MenuBar menuBar;
+
+    @FXML
+    private ScrollPane boardView;
 
     public MainWindow(Stage stage) {
         this.primaryStage = stage;
@@ -88,13 +92,6 @@ public class MainWindow {
 
         // Proof menu items
 
-        MenuItem addLine = new MenuItem("Add Line");
-        MenuItem deleteLine = new MenuItem("Delete Line");
-        MenuItem startSubProof = new MenuItem("Start Subproof");
-        MenuItem endSubProof = new MenuItem("End Subproof");
-        MenuItem newPremise = new MenuItem("Add Premise");
-        MenuItem addGoal = new MenuItem("Add Goal");
-        MenuItem verifyLine = new MenuItem("Verify Line");
         MenuItem verifyProof = new MenuItem("Verify Proof");
 
 //        addLine.setOnAction(actionEvent -> {
@@ -136,7 +133,7 @@ public class MainWindow {
 //        verifyLine.acceleratorProperty().bind(configuration.verifyLineKey);
 //        verifyProof.acceleratorProperty().bind(configuration.verifyProofKey);
 
-        proof.getItems().addAll(addLine, deleteLine, startSubProof, endSubProof, newPremise, addGoal, verifyLine, verifyProof);
+        proof.getItems().addAll(verifyProof);
 
         // Submit menu items
 
@@ -146,9 +143,9 @@ public class MainWindow {
 
         // Help menu items
 
-        MenuItem checkUpdate = new MenuItem("Check for updates");
+        MenuItem checkUpdate = new MenuItem("Check for updates...");
         MenuItem helpItem = new MenuItem("Legup Help");
-        MenuItem about = new MenuItem("About Legup");
+        MenuItem about = new MenuItem("About");
 
         help.getItems().addAll(checkUpdate, helpItem, about);
 

@@ -38,6 +38,5 @@ public class FillapixView extends GridBoardView
         {
             element.setElement(fillapixBoard.getElementData(element.getElement()));
         }
-        repaint();
     }
 }

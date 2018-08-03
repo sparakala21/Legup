@@ -31,6 +31,5 @@ public class BattleShipView extends GridBoardView {
         for (ElementView element: elementViews) {
             element.setElement(battleShipBoard.getElementData(element.getElement()));
         }
-        repaint();
     }
 }
