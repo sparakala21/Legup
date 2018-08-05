@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+
+<TabPane fx:id="rules_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+  <tabs>
+    <Tab fx:id="basic_rules_tab" text="Basic Rules">
+         <content>
+            <ScrollPane fx:id="basic_rules_scroll_pane" prefHeight="200.0" prefWidth="200.0">
+               <content>
+                  <Group fx:id="basic_rules_button_group" />
+               </content>
+            </ScrollPane>
+         </content></Tab>
+    <Tab fx:id="case_rules_tab" text="Case Rules">
+         <content>
+            <ScrollPane fx:id="case_rules_scroll_pane" prefHeight="200.0" prefWidth="200.0">
+               <content>
+                  <Group fx:id="case_rules_button_group" />
+               </content>
+            </ScrollPane>
+         </content></Tab>
+    <Tab fx:id="contradiction_rules_tab" text="Contradiction Rules">
+         <content>
+            <ScrollPane fx:id="contradiction_rules_scroll_pane" prefHeight="200.0" prefWidth="200.0">
+               <content>
+                  <Group fx:id="contradiction_rules_button_group" />
+               </content>
+            </ScrollPane>
+         </content></Tab>
+  </tabs>
+</TabPane>
