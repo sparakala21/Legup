@@ -3,12 +3,11 @@ package edu.rpi.legup.puzzle.lightup;
 import edu.rpi.legup.model.gameboard.Board;
 import edu.rpi.legup.model.gameboard.PuzzleElement;
 import edu.rpi.legup.model.gameboard.ElementFactory;
+import javafx.geometry.Point2D;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import edu.rpi.legup.save.InvalidFileFormatException;
-
-import java.awt.*;
 
 public class LightUpCellFactory extends ElementFactory
 {
@@ -27,7 +26,7 @@ public class LightUpCellFactory extends ElementFactory
         {
             if(!node.getNodeName().equalsIgnoreCase("cell"))
             {
-                throw new InvalidFileFormatException("lightup Factory: unknown puzzleElement puzzleElement");
+                throw new InvalidFileFormatException("lightup Factory: unknown puzzleElement");
             }
 
             LightUpBoard lightUpBoard = (LightUpBoard)board;
@@ -47,7 +46,7 @@ public class LightUpCellFactory extends ElementFactory
                 throw new InvalidFileFormatException("lightup Factory: cell unknown value");
             }
 
-            LightUpCell cell = new LightUpCell(value, new Point(x, y));
+            LightUpCell cell = new LightUpCell(value, new Point2D(x, y));
             cell.setIndex(y * height + x);
             return cell;
         }
@@ -73,11 +72,11 @@ public class LightUpCellFactory extends ElementFactory
         org.w3c.dom.Element cellElement = document.createElement("cell");
 
         LightUpCell cell = (LightUpCell)data;
-        Point loc = cell.getLocation();
+        Point2D loc = cell.getLocation();
 
         cellElement.setAttribute("value", String.valueOf(cell.getData()));
-        cellElement.setAttribute("x", String.valueOf(loc.x));
-        cellElement.setAttribute("y", String.valueOf(loc.y));
+        cellElement.setAttribute("x", String.valueOf(loc.getX()));
+        cellElement.setAttribute("y", String.valueOf(loc.getY()));
 
         return cellElement;
     }

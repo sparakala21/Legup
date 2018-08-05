@@ -29,7 +29,7 @@ public class FillapixCellFactory extends ElementFactory
         {
             if(!node.getNodeName().equalsIgnoreCase("cell"))
             {
-                throw new InvalidFileFormatException("Fillapix Factory: unknown puzzleElement puzzleElement");
+                throw new InvalidFileFormatException("Fillapix Factory: unknown puzzleElement");
             }
 
             FillapixBoard fillapixBoard = (FillapixBoard) board;
@@ -67,9 +67,9 @@ public class FillapixCellFactory extends ElementFactory
      * Creates a xml document puzzleElement from a cell for exporting
      *
      * @param document xml document
-     * @param data     PuzzleElement cell
+     * @param data     puzzleElement cell
      *
-     * @return xml PuzzleElement
+     * @return xml puzzleElement
      */
     public org.w3c.dom.Element exportCell(Document document, PuzzleElement data)
     {

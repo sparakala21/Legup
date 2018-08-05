@@ -10,9 +10,6 @@ import edu.rpi.legup.puzzle.lightup.LightUpBoard;
 import edu.rpi.legup.puzzle.lightup.LightUpCell;
 import edu.rpi.legup.puzzle.lightup.LightUpCellType;
 
-import java.awt.*;
-
-
 @RegisterRule(puzzleName = LightUp.class, ruleType = RuleType.CONTRADICTION)
 public class CannotLightACellContradictionRule extends ContradictionRule
 {
@@ -110,7 +107,7 @@ public class CannotLightACellContradictionRule extends ContradictionRule
 
     /**
      * Checks whether the child node logically follows from the parent node at the
-     * specific puzzleElement index using this rule and if so will perform the default application of the rule
+     * specific element index using this rule and if so will perform the default application of the rule
      *
      * @param transition   transition to apply default application
      * @param puzzleElement

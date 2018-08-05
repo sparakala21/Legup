@@ -76,13 +76,13 @@ public class Config
             Document document = builder.parse(stream);
             Element configNode = document.getDocumentElement();
 
-            if(!configNode.getNodeName().equals("Legup"))
+            if(!configNode.getNodeName().equals("edu.rpi.legup.Legup"))
             {
                 throw new InvalidConfigException("Config is not formatted correctly");
             }
 
             Element puzzleList = (Element)configNode.getElementsByTagName("puzzles").item(0);
-            NodeList puzzleNodes = puzzleList.getElementsByTagName("puzzle");
+            NodeList puzzleNodes = puzzleList.getElementsByTagName("edu/rpi/legup/puzzle");
 
             for(int i = 0; i < puzzleNodes.getLength(); i++)
             {

@@ -52,11 +52,11 @@ public class Nurikabe extends Puzzle
     }
 
     /**
-     * Generates a random edu.rpi.legup.puzzle based on the difficulty
+     * Generates a random puzzle based on the difficulty
      *
      * @param difficulty level of difficulty (1-10)
      *
-     * @return board of the random edu.rpi.legup.puzzle
+     * @return board of the random puzzle
      */
     @Override
     public Board generatePuzzle(int difficulty)

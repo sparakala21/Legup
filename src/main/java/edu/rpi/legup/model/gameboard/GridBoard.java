@@ -1,100 +1,108 @@
 package edu.rpi.legup.model.gameboard;
 
-import java.awt.*;
 import java.util.logging.Logger;
 
-public class GridBoard extends Board {
+public class GridBoard extends Board
+{
+    private final static Logger LOGGER = Logger.getLogger(GridBoard.class.getName());
 
-    protected Dimension dimension;
+    protected int width;
+    protected int height;
 
     /**
-     * GridBoard Constructor creates a board for grid using puzzles from a width and height.
+     * GridBoard Constructor - models a GridBoard
      *
-     * @param width  width of the board
-     * @param height height of the board
+     * @param width width of the GridBoard
+     * @param height height of the GridBoard
      */
-    public GridBoard(int width, int height) {
-        this.dimension = new Dimension(width, height);
+    public GridBoard(int width, int height)
+    {
+        this.width = width;
+        this.height = height;
 
-        for (int i = 0; i < width * height; i++) {
-            puzzleElements.add(null);
+        for(int i = 0; i < width * height; i++)
+        {
+            elementData.add(null);
         }
     }
 
     /**
-     * GridBoard Constructor creates a board for grid using puzzles from a size.
+     * GridBoard Constructor - models a GridBoard
      *
      * @param size width and height of the GridBoard
      */
-    public GridBoard(int size) {
+    public GridBoard(int size)
+    {
         this(size, size);
     }
 
     /**
-     * Gets a {@link GridCell} from the board.
+     * Gets a GridCell from the board
      *
      * @param x x location of the cell
      * @param y y location of the cell
-     * @return grid cell at location (x, y)
+     * @return GridCell at location (x,y)
      */
-    public GridCell getCell(int x, int y) {
-        if (x * dimension.width + y >= puzzleElements.size() || x >= dimension.width || y >= dimension.height || x < 0 || y < 0) {
+    public GridCell getCell(int x, int y)
+    {
+        if(x * width + y >= elementData.size() || x >= width ||
+                y >= height || x < 0 || y < 0)
+        {
             return null;
         }
-        return (GridCell) puzzleElements.get(y * dimension.width + x);
+        return (GridCell)elementData.get(y * width + x);
     }
 
     /**
-     * Sets the {@link GridCell} at the location (x,y). This method does not set the cell if the location specified is
-     * out of bounds.
+     * Sets the GridCell at the location (x,y)
      *
-     * @param x    x location of the cell
-     * @param y    y location of the cell
-     * @param cell grid cell to set at location (x,y)
+     * @param x x location of the cell
+     * @param y y location of the cell
+     * @param cell GridCell to set at location (x,y)
      */
-    public void setCell(int x, int y, GridCell cell) {
-        if (x * dimension.width + y >= puzzleElements.size() && x < dimension.width && y < dimension.height && x >= 0 && y >= 0) {
+    public void setCell(int x, int y, GridCell cell)
+    {
+        if(x * width + y >= elementData.size() && x < width &&
+                y < height && x >= 0 && y >= 0)
+        {
             return;
         }
-        puzzleElements.set(y * dimension.width + x, cell);
+        elementData.set(y * width + x, cell);
     }
 
     /**
-     * Gets the width of the board.
+     * Gets the width of the board
      *
      * @return width of the board
      */
-    public int getWidth() {
-        return dimension.width;
+    public int getWidth()
+    {
+        return width;
     }
 
     /**
-     * Gets the height of the board.
+     * Gets the height of the board
      *
-     * @return height of the board
+     * @return height
      */
-    public int getHeight() {
-        return dimension.height;
+    public int getHeight()
+    {
+        return height;
     }
 
-    /**
-     * Gets the dimension of the grid board
-     *
-     * @return the dimension of the grid board
-     */
-    public Dimension getDimension() {
-        return dimension;
-    }
 
     /**
      * Performs a deep copy of the Board
      *
      * @return a new copy of the board that is independent of this one
      */
-    public GridBoard copy() {
-        GridBoard newGridBoard = new GridBoard(this.dimension.width, this.dimension.height);
-        for (int x = 0; x < this.dimension.width; x++) {
-            for (int y = 0; y < this.dimension.height; y++) {
+    public GridBoard copy()
+    {
+        GridBoard newGridBoard = new GridBoard(width, height);
+        for(int x = 0; x < width; x++)
+        {
+            for(int y = 0; y < height; y++)
+            {
                 newGridBoard.setCell(x, y, getCell(x, y).copy());
             }
         }

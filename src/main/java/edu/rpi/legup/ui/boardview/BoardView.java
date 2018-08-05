@@ -8,9 +8,6 @@ import edu.rpi.legup.model.gameboard.PuzzleElement;
 import edu.rpi.legup.model.observer.IBoardListener;
 import edu.rpi.legup.ui.DynamicViewer;
 
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class BoardView extends DynamicViewer implements IBoardListener
@@ -20,11 +17,13 @@ public abstract class BoardView extends DynamicViewer implements IBoardListener
     protected ElementController elementController;
     protected ElementSelection selection;
 
+    protected Pane boardContent;
+
     /**
      * BoardView Constructor - creates a BoardView object using
-     * the edu.rpi.legup.controller handle the edu.rpi.legup.ui events
+     * the controller handle the edu.rpi.legup.ui events
      *
-     * @param boardController edu.rpi.legup.controller that handles the edu.rpi.legup.ui events
+     * @param boardController controller that handles the ui events
      */
     public BoardView(BoardController boardController, ElementController elementController)
     {
@@ -34,12 +33,10 @@ public abstract class BoardView extends DynamicViewer implements IBoardListener
         this.elementController = elementController;
         this.selection = new ElementSelection();
 
-        TitledBorder titleBoard = BorderFactory.createTitledBorder(this.getClass().getSimpleName());
-        titleBoard.setTitleJustification(TitledBorder.CENTER);
-
-        setBorder(titleBoard);
-
         elementController.setBoardView(this);
+
+        boardContent = new Pane();
+        getChildren().add(boardContent);
     }
 
     /**
@@ -52,7 +49,7 @@ public abstract class BoardView extends DynamicViewer implements IBoardListener
      *
      * @return dimension of the board view
      */
-    protected abstract Dimension getProperSize();
+    protected abstract Dimension2D getProperSize();
 
     /**
      * Gets the ElementView from the puzzleElement index or
@@ -80,7 +77,7 @@ public abstract class BoardView extends DynamicViewer implements IBoardListener
      * @param point location on the viewport
      * @return ElementView at the specified location
      */
-    public abstract ElementView getElement(Point point);
+    public abstract ElementView getElement(Point2D point);
 
     /**
      * Gets the ElementSelection for this BoardView
@@ -149,9 +146,9 @@ public abstract class BoardView extends DynamicViewer implements IBoardListener
     }
 
     /**
-     * Gets the amount of edu.rpi.legup.puzzle elements for this board
+     * Gets the amount of puzzle elements for this board
      *
-     * @return the amount of edu.rpi.legup.puzzle elements for this board
+     * @return the amount of puzzle elements for this board
      */
     public int getElementCount()
     {
@@ -173,13 +170,11 @@ public abstract class BoardView extends DynamicViewer implements IBoardListener
         return elementController;
     }
 
-
-
-    public void drawBoard(Graphics2D graphics2D)
+    public void drawBoard()
     {
         for(ElementView element: elementViews)
         {
-            element.draw(graphics2D);
+//            element.draw(graphics2D);
         }
     }
 
@@ -193,6 +188,4 @@ public abstract class BoardView extends DynamicViewer implements IBoardListener
     {
         
     }
-
-    public abstract DataSelectionView getSelectionPopupMenu();
 }

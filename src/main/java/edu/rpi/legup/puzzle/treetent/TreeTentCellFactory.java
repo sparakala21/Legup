@@ -65,7 +65,7 @@ public class TreeTentCellFactory extends ElementFactory
             }
             else
             {
-                throw new InvalidFileFormatException("TreeTent Factory: unknown puzzleElement puzzleElement");
+                throw new InvalidFileFormatException("TreeTent Factory: unknown puzzleElement");
             }
         }
         catch(NumberFormatException e)
@@ -79,7 +79,7 @@ public class TreeTentCellFactory extends ElementFactory
     }
 
     /**
-     * Creates a xml document puzzleElement from a cell for exporting
+     * Creates a xml document Element from a cell for exporting
      *
      * @param document xml document
      * @param data PuzzleElement cell

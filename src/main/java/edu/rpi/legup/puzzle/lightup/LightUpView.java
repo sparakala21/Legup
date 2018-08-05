@@ -12,20 +12,19 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import edu.rpi.legup.controller.BoardController;
+import javafx.scene.image.Image;
+import edu.rpi.legup.model.gameboard.Board;
+import edu.rpi.legup.model.gameboard.CaseBoard;
+import edu.rpi.legup.model.gameboard.Element;
+import edu.rpi.legup.ui.boardview.GridBoardView;
 
 public class LightUpView extends GridBoardView
 {
     static Image lightImage;
     static
     {
-        try
-        {
-            lightImage = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("images/lightup/light.png"));
-        }
-        catch(IOException e)
-        {
-
-        }
+        lightImage = new Image(ClassLoader.getSystemClassLoader().getResourceAsStream("images/lightup/light.png"));
     }
 
     public LightUpView(LightUpBoard board)
@@ -35,11 +34,11 @@ public class LightUpView extends GridBoardView
         for(PuzzleElement puzzleElement : board.getPuzzleElements())
         {
             LightUpCell cell = (LightUpCell) puzzleElement;
-            Point loc = cell.getLocation();
+            Point2D loc = cell.getLocation();
             LightUpElementView elementView = new LightUpElementView(cell);
             elementView.setIndex(cell.getIndex());
             elementView.setSize(elementSize);
-            elementView.setLocation(new Point(loc.x * elementSize.width, loc.y * elementSize.height));
+            elementView.setLocation(new Point2D(loc.x * elementSize.getWidth(), loc.y * elementSize.getHeight()));
             elementViews.add(elementView);
         }
     }

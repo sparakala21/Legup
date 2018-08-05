@@ -8,7 +8,6 @@ import edu.rpi.legup.puzzle.nurikabe.NurikabeBoard;
 import edu.rpi.legup.puzzle.nurikabe.NurikabeType;
 import edu.rpi.legup.utility.ConnectedRegions;
 
-import java.awt.*;
 import java.util.Set;
 
 public class CornerBlackBasicRule extends BasicRule

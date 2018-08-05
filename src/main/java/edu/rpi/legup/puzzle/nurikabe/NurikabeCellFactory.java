@@ -8,8 +8,6 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import edu.rpi.legup.save.InvalidFileFormatException;
 
-import java.awt.*;
-
 public class NurikabeCellFactory extends ElementFactory
 {
     /**
@@ -27,7 +25,7 @@ public class NurikabeCellFactory extends ElementFactory
         {
             if(!node.getNodeName().equalsIgnoreCase("cell"))
             {
-                throw new InvalidFileFormatException("nurikabe Factory: unknown puzzleElement puzzleElement");
+                throw new InvalidFileFormatException("nurikabe Factory: unknown puzzleElement");
             }
 
             NurikabeBoard nurikabeBoard = (NurikabeBoard)board;

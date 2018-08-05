@@ -4,7 +4,11 @@ import edu.rpi.legup.controller.BoardController;
 import edu.rpi.legup.model.gameboard.PuzzleElement;
 import edu.rpi.legup.ui.boardview.GridBoardView;
 
-import java.awt.*;
+import edu.rpi.legup.model.gameboard.Board;
+import edu.rpi.legup.model.gameboard.Element;
+import edu.rpi.legup.ui.boardview.ElementView;
+import edu.rpi.legup.ui.boardview.GridBoardView;
+import javafx.geometry.Point2D;
 
 public class FillapixView extends GridBoardView
 {

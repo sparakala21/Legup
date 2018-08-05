@@ -10,15 +10,27 @@ import edu.rpi.legup.model.tree.TreeNode;
 import edu.rpi.legup.model.tree.TreeTransition;
 import edu.rpi.legup.ui.DynamicViewer;
 import edu.rpi.legup.utility.DisjointSets;
+import edu.rpi.legup.app.GameBoardFacade;
+import edu.rpi.legup.controller.TreeController;
+import javafx.geometry.Dimension2D;
+import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.paint.Color;
+import edu.rpi.legup.model.observer.ITreeListener;
+import edu.rpi.legup.model.tree.Tree;
+import edu.rpi.legup.model.tree.TreeElement;
+import edu.rpi.legup.model.tree.TreeNode;
+import edu.rpi.legup.model.tree.TreeTransition;
+import edu.rpi.legup.ui.DynamicViewer;
+import edu.rpi.legup.utility.DisjointSets;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.util.*;
 import java.util.List;
 import java.util.logging.Logger;
 
+import static edu.rpi.legup.model.tree.TreeElementType.NODE;
+import static edu.rpi.legup.ui.treeview.TreeNodeView.DIAMETER;
+import static edu.rpi.legup.ui.treeview.TreeNodeView.RADIUS;
 import static edu.rpi.legup.model.tree.TreeElementType.NODE;
 import static edu.rpi.legup.model.tree.TreeElementType.TRANSITION;
 import static edu.rpi.legup.ui.treeview.TreeNodeView.DIAMETER;
@@ -28,34 +40,24 @@ public class TreeView extends DynamicViewer implements ITreeListener
 {
     private final static Logger LOGGER = Logger.getLogger(TreeView.class.getName());
 
-    private static final int NODE_RADIUS = 10;
-    private static final int SMALL_NODE_RADIUS = 7;
-    private static final int COLLAPSED_DRAW_DELTA_X = 10;
-    private static final int COLLAPSED_DRAW_DELTA_Y = 10;
-    private static final int TRANS_GAP = 5;
+    private static final double TRANS_GAP = 5;
 
-    private static final int NODE_GAP_WIDTH = 70;
-    private static final int NODE_GAP_HEIGHT = 15;
+    private static final double NODE_GAP_WIDTH = 70;
+    private static final double NODE_GAP_HEIGHT = 25;
 
-    private static final int BORDER_GAP_HEIGHT = 20;
-    private static final int BORDER_GAP_WIDTH = 20;
+    private static final double BORDER_GAP_HEIGHT = 20;
+    private static final double BORDER_GAP_WIDTH = 20;
 
     private static final int BORDER_SPACING = 100;
 
     private static final float floater[] = new float[]{(5.0f), (10.0f)};
     private static final float floater2[] = new float[]{(2.0f), (3.0f)};
-    private static final Stroke dashed = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 10, floater, 0);
-    private static final Stroke dotted = new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 10, floater2, 0);
-    private static final Stroke medium = new BasicStroke(2);
-    private static final Stroke thin = new BasicStroke(1);
     private static final String NodeImgs = "images/Legup/tree/smiley/";
 
     private TreeNodeView nodeHover;
 
-    private ArrayList<Rectangle> currentStateBoxes;
-    private Point selectionOffset = null;
-    private Point lastMovePoint = null;
-    private Rectangle bounds = new Rectangle(0, 0, 0, 0);
+    private Point2D lastMovePoint = null;
+    private Rectangle2D bounds = new Rectangle2D(0, 0, 0, 0);
     private int xOffset = 0;
     private int yOffset = 0;
     private Map<TreeNode, Color> collapseColorHash;
@@ -63,14 +65,13 @@ public class TreeView extends DynamicViewer implements ITreeListener
     private Tree tree;
     private TreeNodeView rootNodeView;
     private Map<TreeElement, TreeElementView> viewMap;
-    private Dimension dimension;
+    private Dimension2D dimension;
 
     private TreeViewSelection selection;
 
     public TreeView(TreeController treeController)
     {
         super(treeController);
-        currentStateBoxes = new ArrayList<>();
         collapseColorHash = new HashMap<>();
 
         viewMap = new HashMap<>();
@@ -109,7 +110,7 @@ public class TreeView extends DynamicViewer implements ITreeListener
      * @param point location to query for a view
      * @return TreeElementView at the point specified, otherwise null
      */
-    public TreeElementView getTreeElementView(Point point)
+    public TreeElementView getTreeElementView(Point2D point)
     {
         return getTreeElementView(point, rootNodeView);
     }
@@ -122,13 +123,13 @@ public class TreeView extends DynamicViewer implements ITreeListener
      * @param elementView view to determine if the point is contained within it
      * @return TreeElementView at the point specified, otherwise null
      */
-    private TreeElementView getTreeElementView(Point point, TreeElementView elementView)
+    private TreeElementView getTreeElementView(Point2D point, TreeElementView elementView)
     {
         if(elementView == null)
         {
             return null;
         }
-        else if(elementView.contains(point) && elementView.isVisible())
+        else if(elementView.contains(point.getX(), point.getY()) && elementView.isVisible())
         {
             if(elementView.getType() == NODE && ((TreeNodeView)elementView).isContradictoryState())
             {
@@ -160,7 +161,7 @@ public class TreeView extends DynamicViewer implements ITreeListener
     }
 
     // recursively computes the bounding rectangle of the tree
-    private Rectangle getTreeBounds(TreeNodeView nodeView)
+    private Rectangle2D getTreeBounds(TreeNodeView nodeView)
     {
         return null;
     }
@@ -192,14 +193,6 @@ public class TreeView extends DynamicViewer implements ITreeListener
         }
     }
 
-    public void reset()
-    {
-        if(bounds.x != 0 || bounds.y != 0)
-        {
-            updateTreeSize();
-        }
-    }
-
     public void zoomFit()
     {
 //        zoomTo(1.0);
@@ -211,46 +204,15 @@ public class TreeView extends DynamicViewer implements ITreeListener
 //        viewport.setViewPosition(new Point(0, 0));
     }
 
-    public void draw(Graphics2D graphics2D)
+    public void draw()
     {
-        currentStateBoxes.clear();
         Tree tree = GameBoardFacade.getInstance().getTree();
         if(tree != null)
         {
             //setSize(bounds.getDimension());
-            graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
-            newReDraw(graphics2D);
-            //drawTree(graphics2D, tree);
-//            dimension.width += BORDER_SPACING;
-//            setSize(dimension);
-
-//            graphics2D.drawRect(0,0, dimension.width, dimension.height);
-
-            if(selection.getHover() != null)
-            {
-                drawMouseOver(graphics2D);
-            }
+            newReDraw();
         }
-    }
-
-    public void zoomReset()
-    {
-//        viewport.setViewPosition(new Point(0, 0));
-    }
-
-    protected void mouseDraggedAt(Point point, MouseEvent e)
-    {
-        if(lastMovePoint == null)
-        {
-            lastMovePoint = new Point(point);
-        }
-    }
-
-    public void mouseWheelMovedAt(MouseWheelEvent e)
-    {
-        updateTreeSize();
     }
 
     /**
@@ -273,16 +235,15 @@ public class TreeView extends DynamicViewer implements ITreeListener
         }
     }
 
-    private void redrawTree(Graphics2D graphics2D, TreeNodeView nodeView)
+    private void redrawTree(TreeNodeView nodeView)
     {
         if(nodeView != null)
         {
-            nodeView.draw(graphics2D);
-            for(TreeTransitionView transitionView : nodeView.getChildrenViews())
-            {
-                transitionView.draw(graphics2D);
-                redrawTree(graphics2D, transitionView.getChildView());
-            }
+//            for(TreeTransitionView transitionView : nodeView.getChildrenViews())
+//            {
+//                transitionView.draw(graphics2D);
+//                redrawTree(graphics2D, transitionView.getChildView());
+//            }
         }
     }
 
@@ -315,114 +276,11 @@ public class TreeView extends DynamicViewer implements ITreeListener
         }
     }
 
-    /**
-     * When the user collapses the nodes, find out which gameboard state was collapsed. The gameboard state can then be used to find out
-     * the overall color for the collapsed transition(s)
-     *
-     * @param lastCollapsed TreeNode before the collapsed transition(s)
-     *
-     * @return OVerall color for the collapsed transition(s)
-     */
-    private Color getCollapsedTransitionColor(TreeNode lastCollapsed)
-    {
-        Color transitionColor = new Color(255, 255, 155);
-
-        //get last node
-        TreeNode iterBoard = lastCollapsed;
-//        while(iterBoard.getChildren().dimension() == 1 && iterBoard.getChildren().get(0).getParents().dimension() < 2)
-//        {
-//            //iterBoard = iterBoard.getChildren().get(0);
-//        }
-
-        transitionColor = new Color(255, 255, 155);
-        if(collapseColorHash.containsKey(iterBoard))
-        {
-            transitionColor = collapseColorHash.get(iterBoard);
-        }
-
-        return transitionColor;
-    }
-
-    /**
-     * Draw a collapsed node at the current location
-     *
-     * @param g the Graphics to draw with
-     * @param x the x location to draw it on
-     * @param y the y location to draw it on
-     */
-    private void drawCollapsedNode(Graphics g, int x, int y, TreeNode lastCollapsed)
-    {
-        x += 5;
-        final int rad = SMALL_NODE_RADIUS;
-        final int diam = 2 * rad;
-        final int deltaX = -COLLAPSED_DRAW_DELTA_X + 2;
-        final int deltaY = -COLLAPSED_DRAW_DELTA_Y;
-
-        Color transitionColor = getCollapsedTransitionColor(lastCollapsed);
-
-        Graphics2D g2D = (Graphics2D) g;
-        g2D.setStroke(thin);
-        g2D.setColor(Color.black);
-        for(int c = 0; c < 3; ++c)
-        {
-            //Polygon tri = makeTriangle(x - rad + (c - 1) * deltaX, y, diam / 2);
-//            g.setColor(transitionColor);
-//            g.fillPolygon(tri);
-//            g.setColor(Color.black);
-//            g.drawPolygon(tri);
-        }
-    }
-
-    /**
-     * When the user hovers over the transition, draws the corresponding rules image
-     *
-     * @param g the graphics to use to draw
-     */
-    public void drawMouseOver(Graphics2D g)
-    {
-        if(selection.getHover().getType() == TRANSITION && ((TreeTransitionView) selection.getHover()).getTreeElement().isJustified())
-        {
-            TreeTransitionView transitionView = (TreeTransitionView) selection.getHover();
-            TreeTransition transition = transitionView.getTreeElement();
-            Rule rule = transitionView.getTreeElement().getRule();
-            int w, h;
-            g.setStroke(thin);
-
-//            JViewport vp = getViewport();
-//            BufferedImage image = new BufferedImage(vp.getWidth(), vp.getHeight(), BufferedImage.TYPE_INT_ARGB);
-//            Graphics2D g_tmp = image.createGraphics();
-            int v_offset = 0;
-
-//            if(transition.isJustified())
-//            {
-//                g_tmp.setColor(Color.black);
-//                String[] tmp = {rule.getRuleName()};
-//                v_offset = 10 + tmp.length * 14;
-//                for(int c1 = 0; c1 < tmp.length; c1++)
-//                {
-//                    g_tmp.drawString(tmp[c1], 0, (14 * c1) + 10);
-//                }
-//                g_tmp.setColor(Color.gray);
-//                g_tmp.drawRect(0, v_offset, 100, 100);
-//            }
-//
-//            if(rule != null)
-//            {
-//                g_tmp.drawImage(rule.getImageIcon().getImage(), 0, v_offset, null);
-//            }
-//            Point mousePoint = selection.getMousePoint();
-//            int scaledWidth = (int) (scale * vp.getWidth());
-//            int scaledHeight = (int) (scale * vp.getHeight());
-//            g.drawImage(image, mousePoint.x, mousePoint.y, scaledWidth, scaledHeight, null);
-        }
-    }
-
     public void resetView()
     {
         this.tree = null;
         this.rootNodeView = null;
         this.selection.clearSelection();
-        this.selection.clearHover();
     }
 
     /**
@@ -549,7 +407,7 @@ public class TreeView extends DynamicViewer implements ITreeListener
 
     ///New Draw Methods
 
-    public void newReDraw(Graphics2D graphics2D)
+    public void newReDraw()
     {
         if(tree == null)
         {
@@ -569,16 +427,15 @@ public class TreeView extends DynamicViewer implements ITreeListener
                 selection.newSelection(rootNodeView);
             }
 
-            dimension = new Dimension(0,0);
+            dimension = new Dimension2D(0,0);
             calcSpan(rootNodeView);
             rootNodeView.setSpan(rootNodeView.getSpan() + DIAMETER + 2 * BORDER_SPACING);
             System.err.println("newReDraw: Calculated span: " + rootNodeView.getSpan());
 
-            calculateViewLocations(rootNodeView, 1);
-            dimension.height = (int)rootNodeView.getSpan();
+            calculateViewLocations(rootNodeView, 0);
+//            dimension.height = (int)rootNodeView.getSpan();
             System.err.println("newReDraw: Calculated view positions");
 
-            redrawTree(graphics2D, rootNodeView);
             System.err.println("newReDraw: redrawTree");
         }
     }
@@ -616,12 +473,12 @@ public class TreeView extends DynamicViewer implements ITreeListener
     public void calculateViewLocations(TreeNodeView nodeView, int depth)
     {
         nodeView.setDepth(depth);
-        int xLoc = (NODE_GAP_WIDTH + DIAMETER) * depth + DIAMETER;
+        double xLoc = (NODE_GAP_WIDTH + DIAMETER) * depth + DIAMETER;
         nodeView.setX(xLoc);
-        dimension.width = Math.max(dimension.width, xLoc + DIAMETER);
+//        dimension.width = Math.max(dimension.width, xLoc + DIAMETER);
 
         TreeTransitionView parentTransView = nodeView.getParentView();
-        int yLoc = parentTransView == null ? (int)nodeView.getSpan() / 2 : parentTransView.getEndY() ;
+        double yLoc = parentTransView == null ? (int)nodeView.getSpan() / 2 : parentTransView.getEndY() ;
         nodeView.setY(yLoc);
 
         ArrayList<TreeTransitionView> children = nodeView.getChildrenViews();
@@ -640,12 +497,12 @@ public class TreeView extends DynamicViewer implements ITreeListener
 
                     childView.setDepth(depth);
 
-                    Point lineStartPoint = childView.getLineStartPoint(0);
+                    Point2D lineStartPoint = childView.getLineStartPoint(0);
                     lineStartPoint.x = xLoc + RADIUS + TRANS_GAP / 2;
                     lineStartPoint.y = yLoc;
                     childView.setEndX((NODE_GAP_WIDTH + DIAMETER) * (depth + 1) + RADIUS - TRANS_GAP / 2);
 
-                    dimension.width = Math.max(dimension.width, childView.getEndX() + DIAMETER);
+//                    dimension.width = Math.max(dimension.width, childView.getEndX() + DIAMETER);
 
                     TreeNodeView childNodeView = childView.getChildView();
                     if(childNodeView != null)
@@ -662,7 +519,7 @@ public class TreeView extends DynamicViewer implements ITreeListener
                         depth = Math.max(depth, parentNodeView.getDepth());
                         yAvg += parentNodeView.getY();
 
-                        Point lineStartPoint = childView.getLineStartPoint(i);
+                        Point2D lineStartPoint = childView.getLineStartPoint(i);
                         lineStartPoint.x = parentNodeView.getX() + RADIUS + TRANS_GAP / 2;
                         lineStartPoint.y = parentNodeView.getY();
                     }
@@ -673,7 +530,7 @@ public class TreeView extends DynamicViewer implements ITreeListener
 
                     childView.setEndX((NODE_GAP_WIDTH + DIAMETER) * (depth + 1) + RADIUS - TRANS_GAP / 2);
 
-                    dimension.width = Math.max(dimension.width, childView.getEndX() + DIAMETER);
+//                    dimension.width = Math.max(dimension.width, childView.getEndX() + DIAMETER);
 
                     TreeNodeView childNodeView = childView.getChildView();
                     if(childNodeView != null)
@@ -698,7 +555,7 @@ public class TreeView extends DynamicViewer implements ITreeListener
 
                     childView.setDepth(depth);
 
-                    Point lineStartPoint = childView.getLineStartPoint(0);
+                    Point2D lineStartPoint = childView.getLineStartPoint(0);
                     lineStartPoint.x = xLoc + RADIUS + TRANS_GAP / 2;
                     lineStartPoint.y = yLoc;
                     childView.setEndX((NODE_GAP_WIDTH + DIAMETER) * (depth + 1) + RADIUS - TRANS_GAP / 2);

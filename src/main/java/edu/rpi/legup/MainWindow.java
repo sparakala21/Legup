@@ -1,15 +1,21 @@
+package edu.rpi.legup;
+
+import edu.rpi.legup.app.GameBoardFacade;
+import edu.rpi.legup.controller.RuleController;
 import javafx.fxml.FXML;
 package edu.rpi.legup;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import edu.rpi.legup.ui.rulesview.RuleFrame;
 
+import java.io.File;
 import java.io.IOException;
 
 public class MainWindow {
@@ -23,6 +29,12 @@ public class MainWindow {
     @FXML
     private ScrollPane boardView;
 
+    @FXML
+    private BorderPane mainPanel;
+
+    @FXML
+    private ToolBar toolBar;
+
     public MainWindow(Stage stage) {
         this.primaryStage = stage;
     }
@@ -35,6 +47,9 @@ public class MainWindow {
         Scene scene = new Scene(root, 1000, 800);
 
         setupMenu();
+        setupToolBar();
+
+        primaryStage.setTitle("edu.rpi.legup.Legup");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -75,11 +90,11 @@ public class MainWindow {
         MenuItem paste = new MenuItem("Paste");
         MenuItem settings = new MenuItem("Settings");
 //
-//        undo.disableProperty().bind(history.canUndo().not());
-//        redo.disableProperty().bind(history.canRedo().not());
+//        undo.disableProperty().bind(edu.rpi.legup.history.canUndo().not());
+//        redo.disableProperty().bind(edu.rpi.legup.history.canRedo().not());
 //
-//        undo.setOnAction(actionEvent -> history.undo());
-//        redo.setOnAction(actionEvent -> history.redo());
+//        undo.setOnAction(actionEvent -> edu.rpi.legup.history.undo());
+//        redo.setOnAction(actionEvent -> edu.rpi.legup.history.redo());
 //
 //        settings.setOnAction(actionEvent -> GuiConfig.getConfigManager().showConfig());
 //
@@ -145,7 +160,7 @@ public class MainWindow {
         // Help menu items
 
         MenuItem checkUpdate = new MenuItem("Check for updates...");
-        MenuItem helpItem = new MenuItem("Legup Help");
+        MenuItem helpItem = new MenuItem("edu.rpi.legup.Legup Help");
         MenuItem about = new MenuItem("About");
 
         help.getItems().addAll(checkUpdate, helpItem, about);
@@ -153,5 +168,45 @@ public class MainWindow {
         menuBar.getMenus().addAll(file, edit, proof, submit, help);
 
         return menuBar;
+    }
+
+    private void setupToolBar()
+    {
+        Button openPuzzle = new Button("", new ImageView(new Image(getClass().getResourceAsStream("images/legup/Open Puzzle.png"))));
+        openPuzzle.setOnAction((Action) -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("edu.rpi.legup.Legup File", ".legup"));
+            fileChooser.setTitle("Open edu.rpi.legup.Legup File");
+            File proofFile = fileChooser.showOpenDialog(primaryStage);
+            try {
+                GameBoardFacade.getInstance().loadBoardFile(proofFile.getAbsolutePath());
+                mainPanel.setCenter(GameBoardFacade.getInstance().getPuzzleModule().getBoardView());
+                FXMLLoader loader = new FXMLLoader(MainWindow.class.getResource("/legup/rules_pane.fxml"));
+                RuleFrame ruleFrame = new RuleFrame(new RuleController());
+                loader.setController(ruleFrame);
+                TabPane tabPane = loader.load();
+
+                ruleFrame.setRules(GameBoardFacade.getInstance().getPuzzleModule());
+                mainPanel.setLeft(tabPane);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        });
+        Button openProof = new Button("", new ImageView(new Image(getClass().getResourceAsStream("images/legup/Open Proof.png"))));
+        Button save = new Button("", new ImageView(new Image(getClass().getResourceAsStream("images/legup/Save.png"))));
+        Button undo = new Button("", new ImageView(new Image(getClass().getResourceAsStream("images/legup/Undo.png"))));
+        Button redo = new Button("", new ImageView(new Image(getClass().getResourceAsStream("images/legup/Redo.png"))));
+        Button hint = new Button("", new ImageView(new Image(getClass().getResourceAsStream("images/legup/Hint.png"))));
+        Button check = new Button("", new ImageView(new Image(getClass().getResourceAsStream("images/legup/Check.png"))));
+        Button submit = new Button("", new ImageView(new Image(getClass().getResourceAsStream("images/legup/Submit.png"))));
+
+        toolBar.getItems().addAll(openPuzzle, openProof, save, undo, redo, hint, check, submit);
+    }
+
+    private void setRulesView()
+    {
+
     }
 }

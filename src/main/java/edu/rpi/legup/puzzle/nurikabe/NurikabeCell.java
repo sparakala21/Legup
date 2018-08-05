@@ -2,12 +2,13 @@ package edu.rpi.legup.puzzle.nurikabe;
 
 import edu.rpi.legup.model.gameboard.GridCell;
 
-import java.awt.*;
+import edu.rpi.legup.model.gameboard.GridCell;
+import javafx.geometry.Point2D;
 
 public class NurikabeCell extends GridCell<Integer>
 {
 
-    public NurikabeCell(int valueInt, Point location)
+    public NurikabeCell(int valueInt, Point2D location)
     {
         super(valueInt, location);
     }
@@ -34,7 +35,7 @@ public class NurikabeCell extends GridCell<Integer>
     @Override
     public NurikabeCell copy()
     {
-        NurikabeCell copy = new NurikabeCell(data, (Point)location.clone());
+        NurikabeCell copy = new NurikabeCell((Integer) data, location);
         copy.setIndex(index);
         copy.setModifiable(isModifiable);
         copy.setGiven(isGiven);

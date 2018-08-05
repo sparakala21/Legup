@@ -1,63 +1,76 @@
 package edu.rpi.legup.model.gameboard;
 
-import java.awt.*;
-
-public class GridCell<T> extends PuzzleElement<T>
+public class GridCell extends Element
 {
-    protected Point location;
+    private int x;
+    private int y;
 
     /**
-     * GridCell Constructor creates a grid cell at the specified location given as a {@link Point}
+     * GridCell Constructor - creates a new GridCell at the specified location
      *
-     * @param value data value that represents the grid cell
-     * @param location location on the board
+     * @param valueString value String that represents the GridCell
+     * @param x x location of the GridCell in the grid
+     * @param y y location of the GridCell in the grid
      */
-    public GridCell(T value, Point location)
+    public GridCell(String valueString, int x, int y)
     {
-        super(value);
-        this.location = location;
+        super(valueString);
+        this.x = x;
+        this.y = y;
     }
 
     /**
-     * GridCell Constructor creates a grid cell at the specified location given as x,y pair
+     * GridCell Constructor - creates a new GridCell at the specified location
      *
-     * @param value data value that represents the grid cell
-     * @param x x location
-     * @param y y location
+     * @param valueInt value int that represents the GridCell
+     * @param x x location of the GridCell in the grid
+     * @param y y location of the GridCell in the grid
      */
-    public GridCell(T value, int x, int y)
+    public GridCell(int valueInt, int x, int y)
     {
-        this(value, new Point(x, y));
+        super(valueInt);
+        this.x = x;
+        this.y = y;
     }
 
     /**
-     * Gets the location of the grid cell on the board
+     * Gets the location of the GridCell on the grid
      *
-     * @return location of the grid cell
+     * @return location of the GridCell
      */
-    public Point getLocation()
+    public int getX()
     {
-        return location;
+        return x;
     }
 
     /**
-     * Sets the location of the grid cell on the board
+     * Gets the location of the GridCell on the grid
      *
-     * @param location location of the grid cell
+     * @return location of the GridCell
      */
-    public void setLocation(Point location)
+    public int getY()
     {
-        this.location = location;
+        return x;
+    }
+
+    public void setX(int x)
+    {
+        this.x = x;
+    }
+
+    public void setY(int y)
+    {
+        this.y = y;
     }
 
     /**
-     * Performs a deep copy on the grid cell
+     * Performs a deep copy on the GridCell
      *
-     * @return a new copy of the grid cell that is independent of this one
+     * @return a new copy of the GridCell that is independent of this one
      */
-    public GridCell<T> copy()
+    public GridCell copy()
     {
-        GridCell<T> copy = new GridCell<>(data, (Point)location.clone());
+        GridCell copy = new GridCell(x, y);
         copy.setIndex(index);
         copy.setModifiable(isModifiable);
         copy.setModified(isModified);

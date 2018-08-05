@@ -2,7 +2,8 @@ package edu.rpi.legup.puzzle.fillapix;
 
 import edu.rpi.legup.model.gameboard.GridCell;
 
-import java.awt.*;
+import edu.rpi.legup.model.gameboard.GridCell;
+import javafx.geometry.Point2D;
 
 public class FillapixCell extends GridCell<Integer>
 {
@@ -12,7 +13,7 @@ public class FillapixCell extends GridCell<Integer>
     private int state;
     private int clue;
 
-    public FillapixCell(int value, Point location)
+    public FillapixCell(int value, Point2D location)
     {
         super(value, location);
         state = (value / 10) * 10;
@@ -102,7 +103,7 @@ public class FillapixCell extends GridCell<Integer>
     @Override
     public FillapixCell copy()
     {
-        FillapixCell cell = new FillapixCell(data, (Point) location.clone());
+        FillapixCell cell = new FillapixCell((Integer) data, location);
         cell.setIndex(index);
         cell.setModifiable(isModifiable);
         cell.setState(state);

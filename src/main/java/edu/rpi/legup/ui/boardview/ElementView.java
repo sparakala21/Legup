@@ -1,17 +1,19 @@
 package edu.rpi.legup.ui.boardview;
 
+import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import model.gameboard.Element;
 import edu.rpi.legup.model.gameboard.PuzzleElement;
 
-import java.awt.*;
-
+import javafx.scene.paint.Color;
+import javafx.geometry.Point2D;
+import edu.rpi.legup.model.gameboard.Element;
 
 public abstract class ElementView extends Node
 {
     protected int index;
-    protected Point location;
-    protected Dimension size;
+    protected Point2D location;
+    protected Dimension2D size;
     protected Element element;
     private Color highLightColor;
     private Color hoverColor;
@@ -43,71 +45,9 @@ public abstract class ElementView extends Node
      * @param point point to check
      * @return true if the point is within the ElementView, false otherwise
      */
-    public boolean isWithinBounds(Point point)
+    public boolean isWithinBounds(Point2D point)
     {
-        return point.x >= location.x && point.x <= location.x + size.width &&
-                point.y >= location.y && point.y <= location.y + size.height;
-    }
-
-    /**
-     * Draws the puzzle element on the screen
-     *
-     * @param graphics2D graphics2D object used for drawing
-     */
-    public void draw(Graphics2D graphics2D)
-    {
-        drawElement(graphics2D);
-        if(element.isGiven())
-        {
-            drawGiven(graphics2D);
-        }
-        if(element.isModified())
-        {
-            drawModified(graphics2D);
-        }
-        if(showCasePicker && isCaseRulePickable)
-        {
-            drawCase(graphics2D);
-        }
-    }
-
-    public void drawElement(Graphics2D graphics2D)
-    {
-        graphics2D.setStroke(new BasicStroke(1));
-        graphics2D.setColor(Color.BLACK);
-        graphics2D.drawRect(location.x, location.y, size.width, size.height);
-
-        graphics2D.setColor(Color.BLACK);
-        FontMetrics metrics = graphics2D.getFontMetrics(graphics2D.getFont());
-        String value = String.valueOf(element.getData());
-        int xText = location.x + (size.width - metrics.stringWidth(value)) / 2;
-        int yText = location.y + ((size.height - metrics.getHeight()) / 2) + metrics.getAscent();
-        graphics2D.drawString(String.valueOf(element.getData()), xText, yText);
-    }
-
-    public void drawGiven(Graphics2D graphics2D)
-    {
-
-    }
-
-    public void drawHover(Graphics2D graphics2D)
-    {
-        graphics2D.setColor(highLightColor);
-        graphics2D.setStroke(new BasicStroke(2));
-        graphics2D.drawRect(location.x + 1, location.y + 1, size.width - 2, size.height - 2);
-    }
-
-    public void drawModified(Graphics2D graphics2D)
-    {
-        graphics2D.setColor(modifiedColor);
-        graphics2D.setStroke(new BasicStroke(2));
-        graphics2D.drawRect(location.x + 1, location.y + 1, size.width - 2, size.height - 2);
-    }
-
-    public void drawCase(Graphics2D graphics2D)
-    {
-        graphics2D.setColor(caseColor);
-        graphics2D.fillRect(location.x + 1, location.y + 1, size.width - 2, size.height - 2);
+        return contains(point);
     }
 
     /**
@@ -135,7 +75,7 @@ public abstract class ElementView extends Node
      *
      * @return location of the ElementView
      */
-    public Point getLocation()
+    public Point2D getLocation()
     {
         return location;
     }
@@ -145,7 +85,7 @@ public abstract class ElementView extends Node
      *
      * @param location location of the ElementView
      */
-    public void setLocation(Point location)
+    public void setLocation(Point2D location)
     {
         this.location = location;
     }
@@ -155,7 +95,7 @@ public abstract class ElementView extends Node
      *
      * @return dimension of the ElementView
      */
-    public Dimension getSize()
+    public Dimension2D getSize()
     {
         return size;
     }
@@ -165,7 +105,7 @@ public abstract class ElementView extends Node
      *
      * @param size dimension of the ElementView
      */
-    public void setSize(Dimension size)
+    public void setSize(Dimension2D size)
     {
         this.size = size;
     }
@@ -185,9 +125,9 @@ public abstract class ElementView extends Node
      *
      * @param data Element associated with this view
      */
-    public void setPuzzleElement(PuzzleElement data)
+    public void setPuzzleElement(PuzzleElement element)
     {
-        this.element = data;
+        this.element = element;
     }
 
     public boolean isShowCasePicker()

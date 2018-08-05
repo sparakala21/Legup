@@ -84,7 +84,7 @@ public class TreeToolBarController implements ActionListener
         }
         else if(button.getToolBarName() == TreeToolBarName.ZOOM_RESET)
         {
-            treePanel.getTreeView().zoomReset();
+
         }
         else if(button.getToolBarName() == TreeToolBarName.ZOOM_FIT)
         {

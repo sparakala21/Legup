@@ -1,49 +1,51 @@
 package edu.rpi.legup.puzzle.treetent;
 
-import edu.rpi.legup.model.gameboard.PuzzleElement;
-import edu.rpi.legup.utility.Entry;
+import edu.rpi.legup.model.gameboard.Element;
 
-public class TreeTentLine extends PuzzleElement<Entry<TreeTentCell, TreeTentCell>>
+public class TreeTentLine extends Element
 {
+    private TreeTentCell c1, c2;
 
     public TreeTentLine(TreeTentCell c1, TreeTentCell c2)
     {
-        this.data = new Entry<>(c1, c2);
+        this.c1 = c1;
+        this.c2 = c2;
+
     }
 
     public TreeTentCell getC1()
     {
-        return data.getKey();
+        return c1;
     }
 
     public void setC1(TreeTentCell c1)
     {
-        this.data.setKey(c1);
+        this.c1 = c1;
     }
 
     public TreeTentCell getC2()
     {
-        return data.getValue();
+        return c2;
     }
 
     public void setC2(TreeTentCell c2)
     {
-        this.data.setValue(c2);
+        this.c2 = c2;
     }
 
     public boolean compare(TreeTentLine line){
-        return ((line.getC1().getLocation().equals(data.getKey().getLocation()) && line.getC2().getLocation().equals(data.getValue().getLocation())) ||
-                (line.getC1().getLocation().equals(data.getValue().getLocation()) && line.getC2().getLocation().equals(data.getKey().getLocation())));
+        return ((line.getC1().getLocation().equals(c1.getLocation()) && line.getC2().getLocation().equals(c2.getLocation())) ||
+                (line.getC1().getLocation().equals(c2.getLocation()) && line.getC2().getLocation().equals(c1.getLocation())));
     }
 
     /**
-     * Copies this elements puzzleElement to a new PuzzleElement object
+     * Copies this elements element to a new Element object
      *
-     * @return copied PuzzleElement object
+     * @return copied Element object
      */
     @Override
     public TreeTentLine copy()
     {
-        return new TreeTentLine(data.getKey().copy(), data.getValue().copy());
+        return new TreeTentLine(c1.copy(), c2.copy());
     }
 }

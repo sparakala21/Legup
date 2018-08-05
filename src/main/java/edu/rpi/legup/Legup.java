@@ -25,7 +25,7 @@ public class Legup extends Application
     public static void main(String[] args)
     {
 //        GameBoardFacade.getInstance();
-//        setConfig();
+        setConfig();
         launch(args);
     }
 

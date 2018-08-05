@@ -48,11 +48,11 @@ public class TreeTent extends Puzzle
     }
 
     /**
-     * Generates a random edu.rpi.legup.puzzle based on the difficulty
+     * Generates a random puzzle based on the difficulty
      *
      * @param difficulty level of difficulty (1-10)
      *
-     * @return board of the random edu.rpi.legup.puzzle
+     * @return board of the random puzzle
      */
     @Override
     public Board generatePuzzle(int difficulty)
@@ -74,7 +74,7 @@ public class TreeTent extends Puzzle
     }
 
     /**
-     * Callback for when the board puzzleElement changes
+     * Callback for when the board element changes
      *
      * @param board the board that has changed
      */

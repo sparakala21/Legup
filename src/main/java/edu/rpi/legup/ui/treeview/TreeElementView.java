@@ -2,40 +2,27 @@ package edu.rpi.legup.ui.treeview;
 
 import edu.rpi.legup.model.tree.TreeElement;
 import edu.rpi.legup.model.tree.TreeElementType;
+import javafx.scene.Group;
 
-import java.awt.*;
-
-public abstract class TreeElementView implements Shape
+public abstract class TreeElementView extends Group
 {
     protected TreeElement treeElement;
     protected double span;
     protected int depth;
     protected boolean isSelected;
-    protected boolean isHover;
     protected TreeElementType type;
-    protected boolean isVisible;
 
     /**
-     * TreeElementView Constructor - creates a tree puzzleElement view
+     * TreeElementView Constructor - creates a tree element view
      *
-     * @param type tree puzzleElement type
-     * @param treeElement tree puzzleElement puzzleElement associated with this view
+     * @param type tree element type
+     * @param treeElement tree element associated with this view
      */
-    protected TreeElementView(TreeElementType type, TreeElement treeElement)
-    {
+    protected TreeElementView(TreeElementType type, TreeElement treeElement) {
         this.type = type;
         this.treeElement = treeElement;
         this.isSelected = false;
-        this.isHover = false;
-        this.isVisible = true;
     }
-
-    /**
-     * Draws the tree puzzleElement view
-     *
-     * @param graphics2D graphics2D object used to draw the tree puzzleElement view
-     */
-    public abstract void draw(Graphics2D graphics2D);
 
     /**
      * Gets the span for the sub tree rooted at this view
@@ -58,9 +45,9 @@ public abstract class TreeElementView implements Shape
     }
 
     /**
-     * Gets the depth of this tree puzzleElement in the tree
+     * Gets the depth of this tree element in the tree
      *
-     * @return depth of this tree puzzleElement
+     * @return depth of this tree element
      */
     public int getDepth()
     {
@@ -68,9 +55,9 @@ public abstract class TreeElementView implements Shape
     }
 
     /**
-     * Sets the depth of this tree puzzleElement in the tree
+     * Sets the depth of this tree element in the tree
      *
-     * @param depth depth of this tree puzzleElement
+     * @param depth depth of this tree element
      */
     public void setDepth(int depth)
     {
@@ -78,9 +65,9 @@ public abstract class TreeElementView implements Shape
     }
 
     /**
-     * Gets the tree puzzleElement type for this view
+     * Gets the tree element type for this view
      *
-     * @return tree puzzleElement type
+     * @return tree element type
      */
     public TreeElementType getType()
     {
@@ -88,9 +75,9 @@ public abstract class TreeElementView implements Shape
     }
 
     /**
-     * Gets the tree puzzleElement associated with this view
+     * Gets the tree element associated with this view
      *
-     * @return tree puzzleElement associated with this view
+     * @return tree element associated with this view
      */
     public TreeElement getTreeElement()
     {
@@ -98,9 +85,9 @@ public abstract class TreeElementView implements Shape
     }
 
     /**
-     * Sets the tree puzzleElement associated with this view
+     * Sets the tree element associated with this view
      *
-     * @param treeElement tree puzzleElement associated with this view
+     * @param treeElement tree element associated with this view
      */
     public void setTreeElement(TreeElement treeElement)
     {
@@ -125,46 +112,5 @@ public abstract class TreeElementView implements Shape
     public void setSelected(boolean isSelected)
     {
         this.isSelected = isSelected;
-    }
-
-    /**
-     * Gets the mouse hover
-     *
-     * @return mouse hover
-     */
-    public boolean isHover()
-    {
-        return isHover;
-    }
-
-    /**
-     * Sets the mouse hover
-     *
-     * @param isHovered mouse hover
-     */
-    public void setHover(boolean isHovered)
-    {
-        this.isHover = isHovered;
-    }
-
-    /**
-     * Gets the visibility of the tree puzzleElement.
-     * Tells the TreeView whether or not to draw the tree puzzleElement
-     *
-     * @return visibility of the tree puzzleElement
-     */
-    public boolean isVisible()
-    {
-        return isVisible;
-    }
-
-    /**
-     * Sets the visibility of the tree puzzleElement
-     *
-     * @param isVisible visibility of the tree puzzleElement
-     */
-    public void setVisible(boolean isVisible)
-    {
-        this.isVisible = isVisible;
     }
 }

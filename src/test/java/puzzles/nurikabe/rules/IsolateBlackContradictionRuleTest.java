@@ -9,7 +9,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import edu.rpi.legup.puzzle.nurikabe.Nurikabe;
 import edu.rpi.legup.puzzle.nurikabe.rules.IsolateBlackContradictionRule;
-import edu.rpi.legup.save.InvalidFileFormatException;
+import edu.rpi.legup.save.InvalidFileFormatException;;
+import edu.rpi.legup.puzzle.nurikabe.rules.TooFewSpacesContradictionRule;
 
 public class IsolateBlackContradictionRuleTest
 {

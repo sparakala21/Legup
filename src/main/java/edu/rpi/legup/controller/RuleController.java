@@ -10,6 +10,15 @@ import edu.rpi.legup.ui.treeview.*;
 import edu.rpi.legup.history.ICommand;
 import edu.rpi.legup.history.ValidateBasicRuleCommand;
 import edu.rpi.legup.history.ValidateContradictionRuleCommand;
+import edu.rpi.legup.app.GameBoardFacade;
+import edu.rpi.legup.model.Puzzle;
+import edu.rpi.legup.model.gameboard.CaseBoard;
+import edu.rpi.legup.model.rules.*;
+import edu.rpi.legup.model.tree.*;
+import edu.rpi.legup.ui.treeview.*;
+import edu.rpi.legup.history.ICommand;
+import edu.rpi.legup.history.ValidateBasicRuleCommand;
+import edu.rpi.legup.history.ValidateContradictionRuleCommand;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,8 +31,8 @@ public class RuleController implements ActionListener
     protected Object lastSource;
 
     /**
-     * RuleController Constructor - creates a edu.rpi.legup.controller object to listen
-     * to edu.rpi.legup.ui events from a RulePanelView
+     * RuleController Constructor - creates a controller object to listen
+     * to ui events from a RulePanelView
      */
     public RuleController()
     {
@@ -126,7 +135,6 @@ public class RuleController implements ActionListener
                 if(transition.getChildNode() == null)
                 {
                     transition.setRule(rule);
-                    GameBoardFacade.getInstance().getLegupUI().repaintTree();
                 }
             }
             else
@@ -144,7 +152,6 @@ public class RuleController implements ActionListener
                     newNodeView.setTreeElement(transition.getChildNode());
 
                     GameBoardFacade.getInstance().setBoard(transition.getBoard());
-                    GameBoardFacade.getInstance().getLegupUI().repaintTree();
                 }
             }
         }
@@ -159,13 +166,11 @@ public class RuleController implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
         lastSource = e.getSource();
-        RuleButton button = (RuleButton) lastSource;
-        buttonPressed(button.getRule());
     }
 
     /**
      * Verifies that the selected tree node correctly uses the rule applied to it
-     * This is called when a edu.rpi.legup.user presses a rule button on a selected node
+     * This is called when a user presses a rule button on a selected node
      *
      * @param rule the rule to verify the selected node
      */

@@ -1,13 +1,14 @@
 package edu.rpi.legup.ui.boardview;
 
-import java.awt.*;
+import javafx.geometry.Point2D;
+
 import java.util.ArrayList;
 
 public class ElementSelection
 {
     private ArrayList<ElementView> selection;
     private ElementView hover;
-    private Point mousePoint;
+    private Point2D mousePoint;
 
     public ElementSelection()
     {
@@ -56,12 +57,12 @@ public class ElementSelection
         selection.clear();
     }
 
-    public Point getMousePoint()
+    public Point2D getMousePoint()
     {
         return mousePoint;
     }
 
-    public void setMousePoint(Point point)
+    public void setMousePoint(Point2D point)
     {
         this.mousePoint = point;
     }

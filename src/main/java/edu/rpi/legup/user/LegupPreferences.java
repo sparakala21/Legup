@@ -1,4 +1,4 @@
-package user;
+package edu.rpi.legup.user;
 
 public class LegupPreferences {
     private static final String PASTE_KEY = "PASTE_KEY";

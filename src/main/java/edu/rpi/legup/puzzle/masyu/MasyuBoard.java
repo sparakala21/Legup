@@ -3,9 +3,6 @@ package edu.rpi.legup.puzzle.masyu;
 import edu.rpi.legup.model.gameboard.PuzzleElement;
 import edu.rpi.legup.model.gameboard.GridBoard;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MasyuBoard extends GridBoard
 {
 

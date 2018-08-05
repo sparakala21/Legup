@@ -1,5 +1,12 @@
-package edu.rpi.legup.app;
+package app;
 
+import edu.rpi.legup.history.IHistoryListener;
+import edu.rpi.legup.history.IHistorySubject;
+import edu.rpi.legup.model.PuzzleImporter;
+import edu.rpi.legup.model.gameboard.Board;
+import edu.rpi.legup.model.Puzzle;
+import edu.rpi.legup.model.tree.Tree;
+import edu.rpi.legup.MainWindow;
 import edu.rpi.legup.history.IHistoryListener;
 import edu.rpi.legup.history.IHistorySubject;
 import edu.rpi.legup.model.PuzzleImporter;
@@ -39,7 +46,7 @@ public class GameBoardFacade implements IHistorySubject
 
     protected Puzzle puzzle;
 
-    private LegupUI legupUI;
+    private MainWindow legupUI;
 
     private History history;
     private List<IHistoryListener> historyListeners;
@@ -51,7 +58,6 @@ public class GameBoardFacade implements IHistorySubject
     {
         history = new History();
         historyListeners = new ArrayList<>();
-        initializeUI();
     }
 
     /**
@@ -68,16 +74,9 @@ public class GameBoardFacade implements IHistorySubject
         return instance;
     }
 
-    public void initializeUI()
-    {
-        legupUI = new LegupUI();
-        addHistoryListener(legupUI);
-    }
-
     public void setPuzzle(Puzzle puzzle)
     {
         this.puzzle = puzzle;
-        this.legupUI.setPuzzleView(puzzle);
         this.history.clear();
     }
 
@@ -180,21 +179,12 @@ public class GameBoardFacade implements IHistorySubject
      * Sets the window title to 'PuzzleName - FileName'
      * Removes the extension
      *
-     * @param puzzleName edu.rpi.legup.puzzle name for the file
-     * @param fileName file name of the edu.rpi.legup.puzzle
+     * @param puzzleName puzzle name for the file
+     * @param fileName file name of the puzzle
      */
     public void setWindowTitle(String puzzleName, String fileName)
     {
         File file = new File(fileName);
-        legupUI.setTitle(puzzleName + " - " + file.getName());
-    }
-
-    /**
-     * Repaints the entire GUI
-     */
-    public void repaintGui()
-    {
-        legupUI.reloadGui();
     }
 
     /**
@@ -212,7 +202,7 @@ public class GameBoardFacade implements IHistorySubject
      *
      * @return LegupUI
      */
-    public LegupUI getLegupUI()
+    public MainWindow getLegupUI()
     {
         return legupUI;
     }
@@ -268,7 +258,7 @@ public class GameBoardFacade implements IHistorySubject
     }
 
     /**
-     * Adds a edu.rpi.legup.history listener
+     * Adds a history listener
      *
      * @param listener listener to add
      */
@@ -278,7 +268,7 @@ public class GameBoardFacade implements IHistorySubject
         historyListeners.add(listener);
     }
     /**
-     * Removes a edu.rpi.legup.history listener
+     * Removes a history listener
      *
      * @param listener listener to remove
      */

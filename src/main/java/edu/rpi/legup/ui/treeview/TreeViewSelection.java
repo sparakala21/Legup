@@ -1,6 +1,7 @@
 package edu.rpi.legup.ui.treeview;
 
-import java.awt.*;
+import javafx.geometry.Point2D;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -8,7 +9,7 @@ public class TreeViewSelection
 {
     private ArrayList<TreeElementView> selectedViews;
     private TreeElementView hover;
-    private Point mousePoint;
+    private Point2D mousePoint;
 
     /**
      * TreeViewSelection Constructor - creates a tree view selection
@@ -64,9 +65,9 @@ public class TreeViewSelection
     }
 
     /**
-     * Toggles a tree puzzleElement view selectedViews
+     * Toggles a tree element view selectedViews
      *
-     * @param treeElementView a tree puzzleElement view to toggle
+     * @param treeElementView a tree element view to toggle
      */
     public void toggleSelection(TreeElementView treeElementView)
     {
@@ -83,9 +84,9 @@ public class TreeViewSelection
     }
 
     /**
-     * Adds a tree puzzleElement view selectedViews
+     * Adds a tree element view selectedViews
      *
-     * @param treeElementView a tree puzzleElement view to add
+     * @param treeElementView a tree element view to add
      */
     public void addToSelection(TreeElementView treeElementView)
     {
@@ -97,9 +98,9 @@ public class TreeViewSelection
     }
 
     /**
-     * Creates a new selectedViews and add the specified tree puzzleElement view
+     * Creates a new selectedViews and add the specified tree element view
      *
-     * @param treeElementView tree puzzleElement view
+     * @param treeElementView tree element view
      */
     public void newSelection(TreeElementView treeElementView)
     {
@@ -121,9 +122,9 @@ public class TreeViewSelection
     }
 
     /**
-     * Gets tree puzzleElement view that the mouse is hovering over or null is no such view exists
+     * Gets tree element view that the mouse is hovering over or null is no such view exists
      *
-     * @return tree puzzleElement view that the mouse is hovering over or null is no such view exists
+     * @return tree element view that the mouse is hovering over or null is no such view exists
      */
     public TreeElementView getHover()
     {
@@ -131,38 +132,11 @@ public class TreeViewSelection
     }
 
     /**
-     * Clears the previous hover and sets the specified tree puzzleElement view to the new hover
-     *
-     * @param newHovered tree puzzleElement view for the new hover
-     */
-    public void newHover(TreeElementView newHovered)
-    {
-        newHovered.setHover(true);
-        if(hover != null)
-        {
-            hover.setHover(false);
-        }
-        hover = newHovered;
-    }
-
-    /**
-     * Clears the current hover tree puzzleElement view
-     */
-    public void clearHover()
-    {
-        if(hover != null)
-        {
-            hover.setHover(false);
-            hover = null;
-        }
-    }
-
-    /**
      * Gets the current mouse location relative to the tree view
      *
      * @return the current mouse location relative to the tree view
      */
-    public Point getMousePoint()
+    public Point2D getMousePoint()
     {
         return mousePoint;
     }
@@ -172,7 +146,7 @@ public class TreeViewSelection
      *
      * @param point the current mouse location relative to the tree view
      */
-    public void setMousePoint(Point point)
+    public void setMousePoint(Point2D point)
     {
         this.mousePoint = point;
     }

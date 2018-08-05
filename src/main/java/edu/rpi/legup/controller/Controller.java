@@ -1,17 +1,16 @@
 package edu.rpi.legup.controller;
 
 import javafx.scene.Cursor;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import edu.rpi.legup.ui.DynamicViewer;
 import ui.DynamicViewer;
 import edu.rpi.legup.ui.DynamicViewer;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-
-public abstract class Controller implements MouseMotionListener, MouseListener, MouseWheelListener
+public abstract class Controller implements IMouseHandler
 {
     protected DynamicViewer viewer;
-    private int x, y;
+    private double x, y;
     private boolean pan;
 
     /**
@@ -35,8 +34,23 @@ public abstract class Controller implements MouseMotionListener, MouseListener, 
      * @param e MouseEvent object
      */
     @Override
-    public void mouseClicked(MouseEvent e)
+    public void onMouseClicked(MouseEvent e)
     {
+
+    }
+
+    public void onMouseDragEntered(MouseEvent e)
+    {
+
+    }
+    public void onMouseDragExited(MouseEvent e)
+    {
+
+    }
+    public void onMouseDragOver(MouseEvent e){
+
+    }
+    public void onMouseDragReleased(MouseEvent e){
 
     }
 
@@ -47,9 +61,9 @@ public abstract class Controller implements MouseMotionListener, MouseListener, 
      * @param e MouseEvent object
      */
     @Override
-    public void mousePressed(MouseEvent e)
+    public void onMousePressed(MouseEvent e)
     {
-        if(e.getButton() == MouseEvent.BUTTON2)
+        if(e.getButton() == MouseButton.PRIMARY)
         {
             pan = true;
             x = e.getX();
@@ -65,9 +79,9 @@ public abstract class Controller implements MouseMotionListener, MouseListener, 
      * @param e MouseEvent object
      */
     @Override
-    public void mouseReleased(MouseEvent e)
+    public void onMouseReleased(MouseEvent e)
     {
-        if(e.getButton() == MouseEvent.BUTTON2)
+        if(e.getButton() == MouseButton.PRIMARY)
         {
             pan = false;
             viewer.setCursor(Cursor.DEFAULT);
@@ -80,7 +94,7 @@ public abstract class Controller implements MouseMotionListener, MouseListener, 
      * @param e MouseEvent object
      */
     @Override
-    public void mouseEntered(MouseEvent e)
+    public void onMouseEntered(MouseEvent e)
     {
 
     }
@@ -91,7 +105,7 @@ public abstract class Controller implements MouseMotionListener, MouseListener, 
      * @param e MouseEvent object
      */
     @Override
-    public void mouseExited(MouseEvent e)
+    public void onMouseExited(MouseEvent e)
     {
 
     }
@@ -102,17 +116,9 @@ public abstract class Controller implements MouseMotionListener, MouseListener, 
      * @param e MouseEvent object
      */
     @Override
-    public void mouseDragged(MouseEvent e)
+    public void onMouseDragged(MouseEvent e)
     {
-        if(pan)
-        {
-            JViewport viewport = viewer.getViewport();
-            Point position = viewer.getViewport().getViewPosition();
-            position.x += (x - e.getX());
-            position.y += (y - e.getY());
-            viewport.setViewPosition(position);
-            viewer.revalidate();
-        }
+
     }
 
     /**
@@ -121,26 +127,9 @@ public abstract class Controller implements MouseMotionListener, MouseListener, 
      * @param e MouseEvent object
      */
     @Override
-    public void mouseMoved(MouseEvent e)
+    public void onMouseMoved(MouseEvent e)
     {
 
     }
 
-    /**
-     * Mouse Wheel Moved event - zooms in on the viewport
-     *
-     * @param e MouseEvent object
-     */
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent e)
-    {
-        if(e.isControlDown())
-        {
-            viewer.zoom(e.getWheelRotation() * 2, e.getPoint());
-        }
-        else
-        {
-            viewer.zoom(e.getWheelRotation(), e.getPoint());
-        }
-    }
 }

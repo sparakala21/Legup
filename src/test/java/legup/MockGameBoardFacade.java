@@ -4,6 +4,10 @@ import edu.rpi.legup.app.Config;
 import edu.rpi.legup.app.GameBoardFacade;
 import edu.rpi.legup.app.InvalidConfigException;
 import edu.rpi.legup.model.Puzzle;
+import org.junit.BeforeClass;
+
+import javax.annotation.Resource;
+import java.util.logging.Level;
 
 public class MockGameBoardFacade extends GameBoardFacade
 {

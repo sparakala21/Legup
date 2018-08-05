@@ -2,36 +2,34 @@ package edu.rpi.legup.ui.boardview;
 
 import edu.rpi.legup.controller.BoardController;
 import edu.rpi.legup.controller.ElementController;
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Point;
+import javafx.geometry.Dimension2D;
+import javafx.geometry.Point2D;
 
 public class GridBoardView extends BoardView
 {
-    protected Dimension gridSize;
-    protected Dimension elementSize;
+    protected Dimension2D gridSize;
+    protected Dimension2D elementSize;
 
     /**
      * GridBoardView Constructor - creates a GridBoardView object using
-     * the edu.rpi.legup.controller handle the edu.rpi.legup.ui events
+     * the controller handle the ui events
      *
-     * @param boardController edu.rpi.legup.controller that handles the edu.rpi.legup.ui events
+     * @param boardController controller that handles the ui events
      * @param gridSize dimension of the grid
      */
-    public GridBoardView(BoardController boardController, ElementController elementController, Dimension gridSize)
+    public GridBoardView(BoardController boardController, ElementController elementController, Dimension2D gridSize)
     {
         this(boardController, elementController);
         this.gridSize = gridSize;
-        this.elementSize = new Dimension(30,30);
+        this.elementSize = new Dimension2D(30,30);
         initSize();
     }
 
     /**
      * GridBoardView Constructor - creates a GridBoardView object using
-     * the edu.rpi.legup.controller handle the edu.rpi.legup.ui events
+     * the controller handle the ui events
      *
-     * @param boardController edu.rpi.legup.controller that handles the edu.rpi.legup.ui events
+     * @param boardController controller that handles the ui events
      */
     private GridBoardView(BoardController boardController, ElementController elementController)
     {
@@ -61,7 +59,7 @@ public class GridBoardView extends BoardView
      * @param point location on the viewport
      * @return GridElementView at the specified location
      */
-    public GridElementView getElement(Point point)
+    public GridElementView getElement(Point2D point)
     {
         for(ElementView element: elementViews)
         {
@@ -86,17 +84,11 @@ public class GridBoardView extends BoardView
      *
      * @return proper dimension of the grid view
      */
-    protected Dimension getProperSize()
+    protected Dimension2D getProperSize()
     {
-        Dimension boardViewSize = new Dimension();
-        boardViewSize.width = gridSize.width * elementSize.width;
-        boardViewSize.height = gridSize.height * elementSize.height;
+        Dimension2D boardViewSize = new Dimension2D(gridSize.getWidth() * elementSize.getWidth(),
+                gridSize.getHeight() * elementSize.getHeight());
         return boardViewSize;
-    }
-
-    public DataSelectionView getSelectionPopupMenu()
-    {
-        return null;
     }
 }
 

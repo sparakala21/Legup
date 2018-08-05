@@ -1,12 +1,12 @@
 package edu.rpi.legup.controller;
 
-import java.awt.*;
-import java.awt.event.*;
+import javafx.geometry.Point2D;
+import javafx.scene.input.MouseEvent;
 
 public class BoardController extends Controller
 {
-    protected Point lastLeftMousePoint;
-    protected Point lastRightMousePoint;
+    protected Point2D lastLeftMousePoint;
+    protected Point2D lastRightMousePoint;
 
     /**
      * BoardController Constructor - creates a edu.rpi.legup.controller object to listen
@@ -25,7 +25,7 @@ public class BoardController extends Controller
      * @param e MouseEvent object
      */
     @Override
-    public void mouseClicked(MouseEvent e)
+    public void onMouseClicked(MouseEvent e)
     {
 
     }
@@ -37,9 +37,9 @@ public class BoardController extends Controller
      * @param e MouseEvent object
      */
     @Override
-    public void mousePressed(MouseEvent e)
+    public void onMousePressed(MouseEvent e)
     {
-        super.mousePressed(e);
+        super.onMousePressed(e);
     }
 
     /**
@@ -49,9 +49,9 @@ public class BoardController extends Controller
      * @param e MouseEvent object
      */
     @Override
-    public void mouseReleased(MouseEvent e)
+    public void onMouseReleased(MouseEvent e)
     {
-        super.mouseReleased(e);
+        super.onMouseReleased(e);
     }
 
     /**
@@ -60,7 +60,7 @@ public class BoardController extends Controller
      * @param e MouseEvent object
      */
     @Override
-    public void mouseEntered(MouseEvent e)
+    public void onMouseEntered(MouseEvent e)
     {
 
     }
@@ -71,7 +71,7 @@ public class BoardController extends Controller
      * @param e MouseEvent object
      */
     @Override
-    public void mouseExited(MouseEvent e)
+    public void onMouseExited(MouseEvent e)
     {
 
     }
@@ -82,9 +82,9 @@ public class BoardController extends Controller
      * @param e MouseEvent object
      */
     @Override
-    public void mouseDragged(MouseEvent e)
+    public void onMouseDragged(MouseEvent e)
     {
-        super.mouseDragged(e);
+        super.onMouseDragged(e);
     }
 
     /**
@@ -93,19 +93,8 @@ public class BoardController extends Controller
      * @param e MouseEvent object
      */
     @Override
-    public void mouseMoved(MouseEvent e)
+    public void onMouseMoved(MouseEvent e)
     {
 
-    }
-
-    /**
-     * Mouse Wheel Moved event - zooms in on the viewport
-     *
-     * @param e MouseEvent object
-     */
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent e)
-    {
-        super.mouseWheelMoved(e);
     }
 }

@@ -3,14 +3,14 @@ package edu.rpi.legup.model.rules;
 import edu.rpi.legup.model.gameboard.PuzzleElement;
 import edu.rpi.legup.model.tree.TreeTransition;
 
-import javax.swing.ImageIcon;
+import javafx.scene.image.Image;
 
 public abstract class Rule
 {
     protected String ruleName;
     protected String description;
     protected String imageName;
-    protected ImageIcon image;
+    protected Image image;
     protected RuleType ruleType;
 
     /**
@@ -102,7 +102,7 @@ public abstract class Rule
     {
         if(imageName != null)
         {
-            image = new ImageIcon(ClassLoader.getSystemResource(imageName));
+            image = new Image(ClassLoader.getSystemResourceAsStream(imageName));
         }
     }
 
@@ -137,11 +137,11 @@ public abstract class Rule
     }
 
     /**
-     * Gets the image icon of the rule
+     * Gets the image image of the rule
      *
-     * @return image icon of the rule
+     * @return image image of the rule
      */
-    public ImageIcon getImageIcon()
+    public Image getImage()
     {
         return image;
     }
