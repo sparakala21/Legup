@@ -4,11 +4,7 @@ import edu.rpi.legup.controller.BoardController;
 import edu.rpi.legup.model.gameboard.Board;
 import edu.rpi.legup.model.gameboard.PuzzleElement;
 import edu.rpi.legup.ui.boardview.GridBoardView;
-import edu.rpi.legup.controller.BoardController;
 import javafx.geometry.Dimension2D;
-import edu.rpi.legup.model.gameboard.Board;
-import edu.rpi.legup.model.gameboard.Element;
-import edu.rpi.legup.ui.boardview.GridBoardView;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

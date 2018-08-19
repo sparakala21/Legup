@@ -2,14 +2,12 @@ package edu.rpi.legup.puzzle.masyu;
 
 import edu.rpi.legup.model.gameboard.GridCell;
 
-import java.awt.*;
-
 public class MasyuCell extends GridCell<Integer>
 {
 
-    public MasyuCell(int value, Point location)
+    public MasyuCell(int value, int x, int y)
     {
-        super(value, location);
+        super(value, x, y);
     }
 
     public MasyuType getType()
@@ -30,7 +28,7 @@ public class MasyuCell extends GridCell<Integer>
     @Override
     public MasyuCell copy()
     {
-        MasyuCell copy = new MasyuCell(data, (Point)location.clone());
+        MasyuCell copy = new MasyuCell(data, x, y);
         copy.setIndex(index);
         copy.setModifiable(isModifiable);
         copy.setGiven(isGiven);

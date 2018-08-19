@@ -1,7 +1,6 @@
 package edu.rpi.legup.puzzle.masyu;
 
 import edu.rpi.legup.controller.BoardController;
-import edu.rpi.legup.model.gameboard.Element;
 import edu.rpi.legup.ui.boardview.GridBoardView;
 
 import java.awt.*;

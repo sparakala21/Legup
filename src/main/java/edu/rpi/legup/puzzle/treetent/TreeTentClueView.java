@@ -1,11 +1,13 @@
 package edu.rpi.legup.puzzle.treetent;
 
+import edu.rpi.legup.model.gameboard.PuzzleElement;
 import edu.rpi.legup.ui.boardview.ElementView;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class TreeTentClueView extends ElementView
 {
-
-    private static final Font FONT = new Font("TimesRoman", Font.BOLD, 16);
+    private static final Font FONT = new Font("TimesRoman", 16);
     private static final Color FONT_COLOR = Color.BLACK;
 
     public TreeTentClueView(TreeTentClue clue)
@@ -24,10 +26,9 @@ public class TreeTentClueView extends ElementView
         return (TreeTentClue)super.getPuzzleElement();
     }
 
-    @Override
-    public void draw(Graphics2D graphics2D)
-    {
-        graphics2D.setColor(FONT_COLOR);
+   @Override
+    public void onPuzzleElementDataChange(PuzzleElement puzzleElement) {
+        setColor(FONT_COLOR);
         graphics2D.setFont(FONT);
         FontMetrics metrics = graphics2D.getFontMetrics(FONT);
         String value;

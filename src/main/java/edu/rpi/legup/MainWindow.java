@@ -3,7 +3,6 @@ package edu.rpi.legup;
 import edu.rpi.legup.app.GameBoardFacade;
 import edu.rpi.legup.controller.RuleController;
 import javafx.fxml.FXML;
-package edu.rpi.legup;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

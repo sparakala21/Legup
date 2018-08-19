@@ -7,6 +7,8 @@ import edu.rpi.legup.model.gameboard.CaseBoard;
 import edu.rpi.legup.model.gameboard.PuzzleElement;
 import edu.rpi.legup.model.observer.IBoardListener;
 import edu.rpi.legup.ui.DynamicViewer;
+import javafx.geometry.Point2D;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 
@@ -43,13 +45,6 @@ public abstract class BoardView extends DynamicViewer implements IBoardListener
      * Initializes the initial dimension of the viewport for the BoardView
      */
     public abstract void initSize();
-
-    /**
-     * Gets the dimension of the board view
-     *
-     * @return dimension of the board view
-     */
-    protected abstract Dimension2D getProperSize();
 
     /**
      * Gets the ElementView from the puzzleElement index or

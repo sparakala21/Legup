@@ -1,7 +1,6 @@
 package edu.rpi.legup.puzzle.masyu;
 
 import edu.rpi.legup.controller.ElementController;
-import edu.rpi.legup.model.gameboard.Element;
 
 import java.awt.event.MouseEvent;
 

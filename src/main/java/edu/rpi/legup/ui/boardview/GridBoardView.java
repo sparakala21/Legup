@@ -71,6 +71,7 @@ public class GridBoardView extends BoardView
         return null;
     }
 
+
     /**
      * Initializes the initial dimension of the viewport for the GridBoardView
      */

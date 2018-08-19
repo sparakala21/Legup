@@ -55,7 +55,6 @@ public class TreeNodeView extends TreeElementView
         this.childrenViews = new ArrayList<>();
         this.isCollapsed = false;
         this.isContradictoryState = false;
-        this.isVisible = true;
     }
 
     /**
@@ -94,7 +93,7 @@ public class TreeNodeView extends TreeElementView
                     graphics2D.setColor(OUTLINE_SELECTION_COLOR);
                     graphics2D.drawOval(location.x - RADIUS - 4, location.y - RADIUS - 4, DIAMETER + 8, DIAMETER + 8);
                 }
-                else if(isHover)
+                else if(isHover())
                 {
                     graphics2D.setColor(HOVER_COLOR);
                     graphics2D.fillOval(location.x - RADIUS, location.y - RADIUS, DIAMETER, DIAMETER);
@@ -280,63 +279,4 @@ public class TreeNodeView extends TreeElementView
         this.isCollapsed = isCollapsed;
     }
 
-    @Override
-    public Rectangle getBounds()
-    {
-        return new Rectangle(location.x, location.y, DIAMETER, DIAMETER);
-    }
-
-    @Override
-    public Rectangle2D getBounds2D()
-    {
-        return new Rectangle(location.x, location.y, DIAMETER, DIAMETER);
-    }
-
-    @Override
-    public boolean contains(double x, double y)
-    {
-        return Math.sqrt(Math.pow(x - location.x, 2) + Math.pow(y - location.y, 2)) <= RADIUS;
-    }
-
-    @Override
-    public boolean contains(Point2D p)
-    {
-        return contains(p.getX(), p.getY());
-    }
-
-    @Override
-    public boolean intersects(double x, double y, double w, double h)
-    {
-        return false;
-    }
-
-    @Override
-    public boolean intersects(Rectangle2D r)
-    {
-        return intersects(r.getX(), r.getY(), r.getWidth(), r.getHeight());
-    }
-
-    @Override
-    public boolean contains(double x, double y, double w, double h)
-    {
-        return false;
-    }
-
-    @Override
-    public boolean contains(Rectangle2D r)
-    {
-        return false;
-    }
-
-    @Override
-    public PathIterator getPathIterator(AffineTransform at)
-    {
-        return null;
-    }
-
-    @Override
-    public PathIterator getPathIterator(AffineTransform at, double flatness)
-    {
-        return null;
-    }
 }

@@ -1,4 +1,4 @@
-package app;
+package edu.rpi.legup.app;
 
 import edu.rpi.legup.history.IHistoryListener;
 import edu.rpi.legup.history.IHistorySubject;
@@ -7,18 +7,11 @@ import edu.rpi.legup.model.gameboard.Board;
 import edu.rpi.legup.model.Puzzle;
 import edu.rpi.legup.model.tree.Tree;
 import edu.rpi.legup.MainWindow;
-import edu.rpi.legup.history.IHistoryListener;
-import edu.rpi.legup.history.IHistorySubject;
-import edu.rpi.legup.model.PuzzleImporter;
-import edu.rpi.legup.model.gameboard.Board;
-import edu.rpi.legup.model.Puzzle;
-import edu.rpi.legup.model.tree.Tree;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 import edu.rpi.legup.save.InvalidFileFormatException;
-import edu.rpi.legup.ui.LegupUI;
 import edu.rpi.legup.history.History;
 
 import javax.xml.parsers.DocumentBuilder;

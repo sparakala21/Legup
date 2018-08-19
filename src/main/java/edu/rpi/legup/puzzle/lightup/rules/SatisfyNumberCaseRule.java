@@ -54,13 +54,14 @@ public class SatisfyNumberCaseRule extends CaseRule
     {
         LightUpBoard lightUpBoard = (LightUpBoard)board;
         LightUpCell cell = (LightUpCell) puzzleElement;
-        Point loc = cell.getLocation();
+        int x = cell.getX();
+        int y = cell.getY();
 
         List<LightUpCell> openSpots = new ArrayList<>();
 
         int numNeeded = cell.getData();
 
-        LightUpCell checkCell = lightUpBoard.getCell(loc.x + 1, loc.y);
+        LightUpCell checkCell = lightUpBoard.getCell(x + 1, y);
         if(checkCell != null)
         {
             if(checkCell.getType() == LightUpCellType.UNKNOWN && !cell.isLite())
@@ -72,7 +73,7 @@ public class SatisfyNumberCaseRule extends CaseRule
                 numNeeded--;
             }
         }
-        checkCell = lightUpBoard.getCell(loc.x, loc.y + 1);
+        checkCell = lightUpBoard.getCell(x, y + 1);
         if(checkCell != null)
         {
             if(checkCell.getType() == LightUpCellType.UNKNOWN && !cell.isLite())
@@ -84,7 +85,7 @@ public class SatisfyNumberCaseRule extends CaseRule
                 numNeeded--;
             }
         }
-        checkCell = lightUpBoard.getCell(loc.x - 1, loc.y);
+        checkCell = lightUpBoard.getCell(x - 1, y);
         if(checkCell != null)
         {
             if(checkCell.getType() == LightUpCellType.UNKNOWN && !cell.isLite())
@@ -96,7 +97,7 @@ public class SatisfyNumberCaseRule extends CaseRule
                 numNeeded--;
             }
         }
-        checkCell = lightUpBoard.getCell(loc.x, loc.y - 1);
+        checkCell = lightUpBoard.getCell(x, y - 1);
         if(checkCell != null)
         {
             if(checkCell.getType() == LightUpCellType.UNKNOWN && !cell.isLite())
@@ -132,10 +133,11 @@ public class SatisfyNumberCaseRule extends CaseRule
             LightUpCell c = openSpots.get(i);
             LightUpBoard newCase = board.copy();
             LightUpCell newCell = c.copy();
-            Point loc = c.getLocation();
+            int x = c.getX();
+            int y = c.getY();
 
             newCell.setData(-4);
-            newCase.setCell(loc.x, loc.y, newCell);
+            newCase.setCell(x, y, newCell);
             newCase.addModifiedData(newCell);
 
             generateCases(board, num, openSpots, cases, newCase, i);
@@ -153,8 +155,10 @@ public class SatisfyNumberCaseRule extends CaseRule
         for(int i = index + 1; i < openSpots.size(); i++)
         {
             LightUpCell c = openSpots.get(i);
-            Point loc = c.getLocation();
-            LightUpCell cc = curBoard.getCell(loc.x, loc.y);
+            int x = c.getX();
+            int y = c.getY();
+
+            LightUpCell cc = curBoard.getCell(x, y);
             if (!curBoard.getModifiedData().contains(cc))
             {
                 LightUpBoard newCase = board.copy();
@@ -163,17 +167,18 @@ public class SatisfyNumberCaseRule extends CaseRule
                 for(PuzzleElement mod : curBoard.getModifiedData())
                 {
                     LightUpCell modCell = (LightUpCell)mod.copy();
-                    Point modLoc = modCell.getLocation();
+                    int mx = modCell.getX();
+                    int my = modCell.getY();
 
                     modCell.setData(-4);
 
-                    newCase.setCell(modLoc.x, modLoc.y, modCell);
+                    newCase.setCell(mx, my, modCell);
                     newCase.addModifiedData(modCell);
                 }
 
                 newCell.setData(-4);
 
-                newCase.setCell(loc.x, loc.y, newCell);
+                newCase.setCell(x, y, newCell);
                 newCase.addModifiedData(newCell);
 
                 generateCases(board, num, openSpots, cases, newCase, i);

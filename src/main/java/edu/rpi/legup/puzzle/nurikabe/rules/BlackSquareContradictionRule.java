@@ -39,9 +39,9 @@ public class BlackSquareContradictionRule extends ContradictionRule
             return "Does not contain a contradiction at this index";
         }
 
-        for(int x = cell.getLocation().x - 1; x >= 0 && x < cell.getLocation().x + 1 && x < width - 1 ; x++)
+        for(int x = cell.getX() - 1; x >= 0 && x < cell.getX() + 1 && x < width - 1 ; x++)
         {
-            for(int y = cell.getLocation().y - 1; y >= 0 && y < cell.getLocation().y + 1&& y < height - 1; y++)
+            for(int y = cell.getY() - 1; y >= 0 && y < cell.getY() + 1&& y < height - 1; y++)
             {
                 if(board.getCell(x, y).getType() == NurikabeType.BLACK &&
                         board.getCell(x + 1,y).getType() == NurikabeType.BLACK &&

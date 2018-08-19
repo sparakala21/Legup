@@ -248,11 +248,12 @@ public class NurikabeUtilities
                 Set<NurikabeCell> newSet = new HashSet<>();
                 for(NurikabeCell c : region)
                 {
-                    Point loc = c.getLocation();
-                    NurikabeCell upCell = board.getCell(loc.x, loc.y -1);
-                    NurikabeCell rightCell = board.getCell(loc.x + 1, loc.y);
-                    NurikabeCell downCell = board.getCell(loc.x, loc.y + 1);
-                    NurikabeCell leftCell = board.getCell(loc.x - 1, loc.y);
+                    int x = c.getX();
+                    int y = c.getY();
+                    NurikabeCell upCell = board.getCell(x, y -1);
+                    NurikabeCell rightCell = board.getCell(x + 1, y);
+                    NurikabeCell downCell = board.getCell(x, y + 1);
+                    NurikabeCell leftCell = board.getCell(x - 1, y);
                     if(upCell != null)
                     {
                         newSet.add(upCell);

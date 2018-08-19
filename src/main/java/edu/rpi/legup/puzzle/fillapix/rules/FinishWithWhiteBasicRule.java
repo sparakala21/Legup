@@ -35,8 +35,8 @@ public class FinishWithWhiteBasicRule extends BasicRule
         {
             for(int j = -1; j < 2; j++)
             {
-                int x = cell.getLocation().x + i;
-                int y = cell.getLocation().y + j;
+                int x = cell.getX() + i;
+                int y = cell.getY() + j;
                 if(x > -1 && x < width && y > -1 && y < height)
                 {
                     // boolean parentCellUnknown = ((FillapixBoard) transition.getParents().getBoard()).getCell(x,y).isUnknown();

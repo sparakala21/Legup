@@ -2,8 +2,10 @@ package edu.rpi.legup.puzzle.sudoku;
 
 import edu.rpi.legup.model.gameboard.GridBoard;
 
+import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.WeakHashMap;
 
 public class SudokuBoard extends GridBoard
 {
@@ -19,7 +21,7 @@ public class SudokuBoard extends GridBoard
     {
         super(size, size);
         this.size = size;
-        this.groupSize = (int)Math.sqrt(dimension.width);
+        this.groupSize = (int)Math.sqrt(width);
     }
 
     /**
@@ -130,9 +132,9 @@ public class SudokuBoard extends GridBoard
     public SudokuBoard copy()
     {
         SudokuBoard newGridBoard = new SudokuBoard(size);
-        for(int x = 0; x < this.dimension.width; x++)
+        for(int x = 0; x < width; x++)
         {
-            for(int y = 0; y < this.dimension.height; y++)
+            for(int y = 0; y < height; y++)
             {
                 newGridBoard.setCell(x, y, getCell(x, y).copy());
             }

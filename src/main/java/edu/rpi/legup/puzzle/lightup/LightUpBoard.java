@@ -17,23 +17,23 @@ public class LightUpBoard extends GridBoard
 
     public void fillWithLight()
     {
-        for(int y = 0; y < this.dimension.height; y++)
+        for(int y = 0; y < height; y++)
         {
-            for(int x = 0; x < this.dimension.width; x++)
+            for(int x = 0; x < width; x++)
             {
                 getCell(x, y).setLite(false);
             }
         }
 
-        for(int y = 0; y < this.dimension.height; y++)
+        for(int y = 0; y < height; y++)
         {
-            for(int x = 0; x < this.dimension.width; x++)
+            for(int x = 0; x < width; x++)
             {
                 LightUpCell cell = getCell(x, y);
                 if(cell.getType() == LightUpCellType.BULB)
                 {
                     cell.setLite(true);
-                    for(int i = x + 1; i < this.dimension.width; i++)
+                    for(int i = x + 1; i < width; i++)
                     {
                         LightUpCell c = getCell(i, y);
                         if(c.getType() == LightUpCellType.NUMBER || c.getType() == LightUpCellType.BLACK)
@@ -51,7 +51,7 @@ public class LightUpBoard extends GridBoard
                         }
                         c.setLite(true);
                     }
-                    for(int i = y + 1; i < this.dimension.height; i++)
+                    for(int i = y + 1; i < height; i++)
                     {
                         LightUpCell c = getCell(x, i);
                         if(c.getType() == LightUpCellType.NUMBER || c.getType() == LightUpCellType.BLACK)
@@ -90,10 +90,10 @@ public class LightUpBoard extends GridBoard
     @Override
     public LightUpBoard copy()
     {
-        LightUpBoard copy = new LightUpBoard(dimension.width, dimension.height);
-        for(int x = 0; x < this.dimension.width; x++)
+        LightUpBoard copy = new LightUpBoard(width, height);
+        for(int x = 0; x < width; x++)
         {
-            for(int y = 0; y < this.dimension.height; y++)
+            for(int y = 0; y < height; y++)
             {
                 copy.setCell(x, y, getCell(x, y).copy());
             }

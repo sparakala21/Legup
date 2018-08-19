@@ -4,8 +4,6 @@ import edu.rpi.legup.controller.TreeController;
 import edu.rpi.legup.model.gameboard.Board;
 import edu.rpi.legup.model.rules.Rule;
 import edu.rpi.legup.model.tree.Tree;
-import edu.rpi.legup.ui.LegupUI;
-import controller.TreeController;
 import javafx.scene.layout.Pane;
 
 public class TreePanel extends Pane
@@ -26,7 +24,6 @@ public class TreePanel extends Pane
 
         TreeController treeController = new TreeController();
         treeView = new TreeView(treeController);
-        treeController.setViewer(treeView);
 
         updateStatusTimer = 0;
     }

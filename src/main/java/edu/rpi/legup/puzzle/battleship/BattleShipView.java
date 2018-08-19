@@ -2,7 +2,6 @@ package edu.rpi.legup.puzzle.battleship;
 
 import edu.rpi.legup.controller.BoardController;
 import edu.rpi.legup.model.gameboard.Board;
-import edu.rpi.legup.model.gameboard.Element;
 import edu.rpi.legup.ui.boardview.ElementView;
 import edu.rpi.legup.ui.boardview.GridBoardView;
 
@@ -29,7 +28,7 @@ public class BattleShipView extends GridBoardView {
         this.board = board;
         BattleShipBoard battleShipBoard = (BattleShipBoard) board;
         for (ElementView element: elementViews) {
-            element.setElement(battleShipBoard.getElementData(element.getElement()));
+            element.setElement(battleShipBoard.getElementData(element.getPuzzleElement()));
         }
     }
 }

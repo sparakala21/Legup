@@ -1,11 +1,7 @@
 package edu.rpi.legup.model.gameboard;
 
-import java.util.logging.Logger;
-
 public class GridBoard extends Board
 {
-    private final static Logger LOGGER = Logger.getLogger(GridBoard.class.getName());
-
     protected int width;
     protected int height;
 
@@ -22,7 +18,7 @@ public class GridBoard extends Board
 
         for(int i = 0; i < width * height; i++)
         {
-            elementData.add(null);
+            puzzleElements.add(null);
         }
     }
 
@@ -45,12 +41,12 @@ public class GridBoard extends Board
      */
     public GridCell getCell(int x, int y)
     {
-        if(x * width + y >= elementData.size() || x >= width ||
+        if(x * width + y >= puzzleElements.size() || x >= width ||
                 y >= height || x < 0 || y < 0)
         {
             return null;
         }
-        return (GridCell)elementData.get(y * width + x);
+        return (GridCell)puzzleElements.get(y * width + x);
     }
 
     /**
@@ -62,12 +58,12 @@ public class GridBoard extends Board
      */
     public void setCell(int x, int y, GridCell cell)
     {
-        if(x * width + y >= elementData.size() && x < width &&
+        if(x * width + y >= puzzleElements.size() && x < width &&
                 y < height && x >= 0 && y >= 0)
         {
             return;
         }
-        elementData.set(y * width + x, cell);
+        puzzleElements.set(y * width + x, cell);
     }
 
     /**

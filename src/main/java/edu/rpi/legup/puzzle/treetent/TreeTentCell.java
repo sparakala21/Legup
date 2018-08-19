@@ -1,14 +1,13 @@
 package edu.rpi.legup.puzzle.treetent;
 
 import edu.rpi.legup.model.gameboard.GridCell;
-import javafx.geometry.Point2D;
 
 public class TreeTentCell extends GridCell<Integer>
 {
 
-    public TreeTentCell(int valueInt, Point2D location)
+    public TreeTentCell(int valueInt, int x, int y)
     {
-        super(valueInt, location);
+        super(valueInt, x, y);
     }
 
     public TreeTentType getType()
@@ -31,7 +30,7 @@ public class TreeTentCell extends GridCell<Integer>
     @Override
     public TreeTentCell copy()
     {
-        TreeTentCell copy = new TreeTentCell((Integer) data, location);
+        TreeTentCell copy = new TreeTentCell(data, x, y);
         copy.setIndex(index);
         copy.setModifiable(isModifiable);
         copy.setGiven(isGiven);

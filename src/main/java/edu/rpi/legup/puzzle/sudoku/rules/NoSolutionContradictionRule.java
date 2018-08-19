@@ -41,8 +41,10 @@ public class NoSolutionContradictionRule extends ContradictionRule
         int groupSize = sudokuBoard.getSize();
 
         Set<SudokuCell> region = sudokuBoard.getRegion(cell.getGroupIndex());
-        Set<SudokuCell> row = sudokuBoard.getRow(cell.getLocation().y);
-        Set<SudokuCell> col = sudokuBoard.getCol(cell.getLocation().x);
+        int x = cell.getX();
+        int y = cell.getY();
+        Set<SudokuCell> row = sudokuBoard.getRow(y);
+        Set<SudokuCell> col = sudokuBoard.getCol(x);
         Set<Integer> solution = new HashSet<>();
         for(int i = 1; i <= groupSize; i++)
         {

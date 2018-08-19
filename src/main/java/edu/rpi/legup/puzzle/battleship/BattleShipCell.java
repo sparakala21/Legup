@@ -4,29 +4,31 @@ import edu.rpi.legup.model.gameboard.GridCell;
 
 import java.awt.*;
 
-public class BattleShipCell extends GridCell {
-    private boolean isShipSegment;
+public class BattleShipCell extends GridCell<Integer> {
 
-    public BattleShipCell(int valueInt, Point location) {
-        super(valueInt, location);
-        this.isShipSegment =false;
+    public BattleShipCell(int data, int x, int y) {
+        super(data, x, y);
     }
 
-    @Override
-    public Integer getData()
-    {
-        return (Integer)data;
+    /**
+     * Gets the type of this BattleShipCell
+     *
+     * @return type of BattleShipCell
+     */
+    public BattleShipCellType getType() {
+        return BattleShipCellType.getType(getData());
     }
 
-    public BattleShipCellType getType() { // FINISH IMPLEMENTING
-        switch ((Integer) data) {
-            // case
-            // return BattleShipCellType._
-        }
-        return null;
+    /**
+     * Performs a deep copy on the BattleShipCell
+     *
+     * @return a new copy of the BattleShipCell that is independent of this one
+     */
+    public BattleShipCell copy() {
+        BattleShipCell copy = new BattleShipCell(data, x, y);
+        copy.setIndex(index);
+        copy.setModifiable(isModifiable);
+        copy.setGiven(isGiven);
+        return copy;
     }
-
-    public boolean isShipSegment() { return isShipSegment; }
-
-    public void setShipSegment(boolean isShipSegment) { this.isShipSegment = isShipSegment; }
 }

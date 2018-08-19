@@ -3,8 +3,6 @@ package edu.rpi.legup.ui.treeview;
 import edu.rpi.legup.model.tree.TreeElementType;
 import edu.rpi.legup.model.tree.TreeTransition;
 
-import java.awt.*;
-import java.awt.geom.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -296,65 +294,5 @@ public class TreeTransitionView extends TreeElementView
     public void setCollapsed(boolean isCollapsed)
     {
         this.isCollapsed = isCollapsed;
-    }
-
-    @Override
-    public Rectangle getBounds()
-    {
-        return arrowhead.getBounds();
-    }
-
-    @Override
-    public Rectangle2D getBounds2D()
-    {
-        return arrowhead.getBounds2D();
-    }
-
-    @Override
-    public boolean contains(double x, double y)
-    {
-        return arrowhead.contains(x, y);
-    }
-
-    @Override
-    public boolean contains(Point2D p)
-    {
-        return arrowhead != null && arrowhead.contains(p);
-    }
-
-    @Override
-    public boolean intersects(double x, double y, double w, double h)
-    {
-        return arrowhead.intersects(x, y, w, h);
-    }
-
-    @Override
-    public boolean intersects(Rectangle2D r)
-    {
-        return arrowhead.intersects(r);
-    }
-
-    @Override
-    public boolean contains(double x, double y, double w, double h)
-    {
-        return arrowhead.contains(x, y, w, h);
-    }
-
-    @Override
-    public boolean contains(Rectangle2D r)
-    {
-        return arrowhead.contains(r);
-    }
-
-    @Override
-    public PathIterator getPathIterator(AffineTransform at)
-    {
-        return arrowhead.getPathIterator(at);
-    }
-
-    @Override
-    public PathIterator getPathIterator(AffineTransform at, double flatness)
-    {
-        return arrowhead.getPathIterator(at, flatness);
     }
 }

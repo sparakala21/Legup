@@ -15,9 +15,9 @@ public class SudokuCell extends GridCell<Integer>
      * @param location location of the cell on the board
      * @param groupIndex index of the group the cell is in on the board
      */
-    public SudokuCell(int value, Point location, int groupIndex)
+    public SudokuCell(int value, int x, int y, int groupIndex)
     {
-        super(value, location);
+        super(value, x, y);
         this.groupIndex = groupIndex;
     }
 
@@ -39,7 +39,7 @@ public class SudokuCell extends GridCell<Integer>
     @Override
     public SudokuCell copy()
     {
-        SudokuCell copy = new SudokuCell(data, (Point)location.clone(), groupIndex);
+        SudokuCell copy = new SudokuCell(data, x, y, groupIndex);
         copy.setIndex(index);
         copy.setModifiable(isModifiable);
         copy.setGiven(isGiven);

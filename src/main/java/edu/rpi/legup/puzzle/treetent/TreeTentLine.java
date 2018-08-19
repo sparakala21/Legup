@@ -1,7 +1,5 @@
 package edu.rpi.legup.puzzle.treetent;
 
-import edu.rpi.legup.model.gameboard.Element;
-
 public class TreeTentLine extends Element
 {
     private TreeTentCell c1, c2;

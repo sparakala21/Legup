@@ -4,8 +4,6 @@ import javafx.scene.Cursor;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import edu.rpi.legup.ui.DynamicViewer;
-import ui.DynamicViewer;
-import edu.rpi.legup.ui.DynamicViewer;
 
 public abstract class Controller implements IMouseHandler
 {

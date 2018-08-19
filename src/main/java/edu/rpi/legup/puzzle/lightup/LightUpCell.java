@@ -2,15 +2,13 @@ package edu.rpi.legup.puzzle.lightup;
 
 import edu.rpi.legup.model.gameboard.GridCell;
 
-import java.awt.*;
-
 public class LightUpCell extends GridCell<Integer>
 {
     private boolean isLite;
 
-    public LightUpCell(int valueInt, Point location)
+    public LightUpCell(int valueInt, int x, int y)
     {
-        super(valueInt, location);
+        super(valueInt, x, y);
         this.isLite = false;
     }
 
@@ -48,7 +46,7 @@ public class LightUpCell extends GridCell<Integer>
     @Override
     public LightUpCell copy()
     {
-        LightUpCell copy = new LightUpCell(data, (Point)location.clone());
+        LightUpCell copy = new LightUpCell(data, x, y);
         copy.setIndex(index);
         copy.setModifiable(isModifiable);
         copy.setGiven(isGiven);

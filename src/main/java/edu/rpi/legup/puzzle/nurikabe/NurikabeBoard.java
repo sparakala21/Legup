@@ -27,10 +27,10 @@ public class NurikabeBoard extends GridBoard
      */
     public int[][] getIntArray()
     {
-        int[][] arr = new int[dimension.height][dimension.width];
-        for(int i = 0; i < dimension.height; i++)
+        int[][] arr = new int[height][width];
+        for(int i = 0; i < height; i++)
         {
-            for(int k = 0; k < dimension.width; k++)
+            for(int k = 0; k < width; k++)
             {
                 arr[i][k] = getCell(k, i).getData();
             }
@@ -41,10 +41,10 @@ public class NurikabeBoard extends GridBoard
     @Override
     public NurikabeBoard copy()
     {
-        NurikabeBoard copy = new NurikabeBoard(dimension.width, dimension.height);
-        for(int x = 0; x < this.dimension.width; x++)
+        NurikabeBoard copy = new NurikabeBoard(width, height);
+        for(int x = 0; x < width; x++)
         {
-            for(int y = 0; y < this.dimension.height; y++)
+            for(int y = 0; y < height; y++)
             {
                 copy.setCell(x, y, getCell(x, y).copy());
             }

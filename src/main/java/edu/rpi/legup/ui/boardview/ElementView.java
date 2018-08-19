@@ -1,24 +1,19 @@
 package edu.rpi.legup.ui.boardview;
 
-import javafx.geometry.Dimension2D;
-import javafx.scene.Node;
-import model.gameboard.Element;
 import edu.rpi.legup.model.gameboard.PuzzleElement;
 
+import javafx.geometry.Dimension2D;
+import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.geometry.Point2D;
-import edu.rpi.legup.model.gameboard.Element;
 
-public abstract class ElementView extends Node
+public abstract class ElementView extends Group
 {
     protected int index;
     protected Point2D location;
     protected Dimension2D size;
-    protected Element element;
+    protected PuzzleElement element;
     private Color highLightColor;
-    private Color hoverColor;
-    private Color modifiedColor;
-    private Color caseColor;
     private boolean showCasePicker;
     private boolean isCaseRulePickable;
     private boolean isSelected;
@@ -28,13 +23,9 @@ public abstract class ElementView extends Node
      *
      * @param element element element to which the puzzle element uses to draw
      */
-    public ElementView(Element element)
+    public ElementView(PuzzleElement element)
     {
         this.element = element;
-        this.highLightColor = new Color(0,0,128,255);
-        this.hoverColor = new Color(0,0,255,255);
-        this.modifiedColor = new Color(0, 255,0,255);
-        this.caseColor = new Color(0, 0,180,200);
         this.isSelected = false;
         this.isCaseRulePickable = false;
     }
@@ -115,7 +106,7 @@ public abstract class ElementView extends Node
      *
      * @return Element associated with this view
      */
-    public Element getElement()
+    public PuzzleElement getPuzzleElement()
     {
         return element;
     }
@@ -123,7 +114,7 @@ public abstract class ElementView extends Node
     /**
      * Sets the Element associated with this view
      *
-     * @param data Element associated with this view
+     * @param element Element associated with this view
      */
     public void setPuzzleElement(PuzzleElement element)
     {
@@ -203,4 +194,6 @@ public abstract class ElementView extends Node
     {
         isSelected = selected;
     }
+
+    public abstract void onPuzzleElementDataChange(PuzzleElement puzzleElement);
 }

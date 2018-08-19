@@ -38,26 +38,27 @@ public class TooFewBulbsContradictionRule extends ContradictionRule
             return "Does not contain a contradiction";
         }
 
-        Point location = cell.getLocation();
+        int x = cell.getX();
+        int y = cell.getY();
 
         int bulbs = 0;
 
-        LightUpCell up = board.getCell(location.x, location.y + 1);
+        LightUpCell up = board.getCell(x, y + 1);
         if(up != null && up.getType() == LightUpCellType.BULB)
         {
             bulbs++;
         }
-        LightUpCell down = board.getCell(location.x, location.y - 1);
+        LightUpCell down = board.getCell(x, y - 1);
         if(down != null && down.getType() == LightUpCellType.BULB)
         {
             bulbs++;
         }
-        LightUpCell right = board.getCell(location.x + 1, location.y);
+        LightUpCell right = board.getCell(x + 1, y);
         if(right != null && right.getType() == LightUpCellType.BULB)
         {
             bulbs++;
         }
-        LightUpCell left = board.getCell(location.x - 1, location.y);
+        LightUpCell left = board.getCell(x - 1, y);
         if(left != null && left.getType() == LightUpCellType.BULB)
         {
             bulbs++;

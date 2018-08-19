@@ -3,36 +3,22 @@ package edu.rpi.legup.ui.treeview;
 import edu.rpi.legup.app.GameBoardFacade;
 import edu.rpi.legup.controller.TreeController;
 import edu.rpi.legup.model.observer.ITreeListener;
-import edu.rpi.legup.model.rules.Rule;
 import edu.rpi.legup.model.tree.Tree;
 import edu.rpi.legup.model.tree.TreeElement;
 import edu.rpi.legup.model.tree.TreeNode;
 import edu.rpi.legup.model.tree.TreeTransition;
 import edu.rpi.legup.ui.DynamicViewer;
 import edu.rpi.legup.utility.DisjointSets;
-import edu.rpi.legup.app.GameBoardFacade;
-import edu.rpi.legup.controller.TreeController;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
-import edu.rpi.legup.model.observer.ITreeListener;
-import edu.rpi.legup.model.tree.Tree;
-import edu.rpi.legup.model.tree.TreeElement;
-import edu.rpi.legup.model.tree.TreeNode;
-import edu.rpi.legup.model.tree.TreeTransition;
-import edu.rpi.legup.ui.DynamicViewer;
-import edu.rpi.legup.utility.DisjointSets;
 
 import java.util.*;
 import java.util.List;
 import java.util.logging.Logger;
 
 import static edu.rpi.legup.model.tree.TreeElementType.NODE;
-import static edu.rpi.legup.ui.treeview.TreeNodeView.DIAMETER;
-import static edu.rpi.legup.ui.treeview.TreeNodeView.RADIUS;
-import static edu.rpi.legup.model.tree.TreeElementType.NODE;
-import static edu.rpi.legup.model.tree.TreeElementType.TRANSITION;
 import static edu.rpi.legup.ui.treeview.TreeNodeView.DIAMETER;
 import static edu.rpi.legup.ui.treeview.TreeNodeView.RADIUS;
 
