@@ -79,7 +79,7 @@ public class TreeTentCellFactory extends ElementFactory
     }
 
     /**
-     * Creates a xml document Element from a cell for exporting
+     * Creates a xml document element from a cell for exporting
      *
      * @param document xml document
      * @param data PuzzleElement cell

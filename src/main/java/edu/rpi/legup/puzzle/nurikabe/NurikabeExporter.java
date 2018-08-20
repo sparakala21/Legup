@@ -22,7 +22,7 @@ public class NurikabeExporter extends PuzzleExporter
         boardElement.setAttribute("height", String.valueOf(board.getHeight()));
 
         org.w3c.dom.Element cellsElement = newDocument.createElement("cells");
-        for(PuzzleElement puzzleElement : board.getPuzzleElements())
+        for(Element element : board.getElementData())
         {
             NurikabeCell cell = (NurikabeCell) puzzleElement;
             if(cell.getData() != -2)

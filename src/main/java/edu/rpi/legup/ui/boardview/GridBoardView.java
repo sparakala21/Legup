@@ -12,9 +12,9 @@ public class GridBoardView extends BoardView
 
     /**
      * GridBoardView Constructor - creates a GridBoardView object using
-     * the controller handle the ui events
+     * the edu.rpi.legup.controller handle the edu.rpi.legup.ui events
      *
-     * @param boardController controller that handles the ui events
+     * @param boardController edu.rpi.legup.controller that handles the edu.rpi.legup.ui events
      * @param gridSize dimension of the grid
      */
     public GridBoardView(BoardController boardController, ElementController elementController, Dimension2D gridSize)
@@ -27,9 +27,9 @@ public class GridBoardView extends BoardView
 
     /**
      * GridBoardView Constructor - creates a GridBoardView object using
-     * the controller handle the ui events
+     * the edu.rpi.legup.controller handle the edu.rpi.legup.ui events
      *
-     * @param boardController controller that handles the ui events
+     * @param boardController edu.rpi.legup.controller that handles the edu.rpi.legup.ui events
      */
     private GridBoardView(BoardController boardController, ElementController elementController)
     {

@@ -19,7 +19,6 @@ public class GridCell<T> extends PuzzleElement<T>
         this.y = y;
     }
 
-
     /**
      * Gets the location of the GridCell on the grid
      *
@@ -48,6 +47,16 @@ public class GridCell<T> extends PuzzleElement<T>
     public void setY(int y)
     {
         this.y = y;
+    }
+
+    /**
+     * Determines if this represents the same element as the specified element
+     *
+     * @param gridCell puzzleElement
+     * @return if this represents the same element as the specified element, false otherwise
+     */
+    public boolean isSameElement(GridCell<T> gridCell) {
+        return this.x == gridCell.getX() && this.y == gridCell.getY();
     }
 
     /**

@@ -1,6 +1,8 @@
 package edu.rpi.legup.puzzle.treetent;
 
-public class TreeTentLine extends Element
+import edu.rpi.legup.model.gameboard.PuzzleElement;
+
+public class TreeTentLine extends PuzzleElement
 {
     private TreeTentCell c1, c2;
 
@@ -32,8 +34,8 @@ public class TreeTentLine extends Element
     }
 
     public boolean compare(TreeTentLine line){
-        return ((line.getC1().getLocation().equals(c1.getLocation()) && line.getC2().getLocation().equals(c2.getLocation())) ||
-                (line.getC1().getLocation().equals(c2.getLocation()) && line.getC2().getLocation().equals(c1.getLocation())));
+        return (line.getC1().isSameElement(c1) && line.getC2().isSameElement(c2)) ||
+                (line.getC1().isSameElement(c2) && line.getC2().isSameElement(c1));
     }
 
     /**

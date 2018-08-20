@@ -24,7 +24,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import static edu.rpi.legup.app.GameBoardFacade.getInstance;
+import static app.GameBoardFacade.getInstance;
 
 public class RuleController implements ActionListener
 {

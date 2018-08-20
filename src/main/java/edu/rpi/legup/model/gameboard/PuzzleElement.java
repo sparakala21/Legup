@@ -143,6 +143,16 @@ public abstract class PuzzleElement<T>
     }
 
     /**
+     * Determines if this represents the same element as the specified element
+     *
+     * @param puzzleElement puzzleElement
+     * @return if this represents the same element as the specified element, false otherwise
+     */
+    public boolean isSameElement(PuzzleElement<T> puzzleElement) {
+        return this.index == puzzleElement.getIndex();
+    }
+
+    /**
      * Copies this elements puzzleElement to a new PuzzleElement object
      *
      * @return copied PuzzleElement object

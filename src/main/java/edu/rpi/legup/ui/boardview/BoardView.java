@@ -181,6 +181,6 @@ public abstract class BoardView extends DynamicViewer implements IBoardListener
     @Override
     public void onBoardDataChanged(PuzzleElement puzzleElement)
     {
-        
+
     }
 }
