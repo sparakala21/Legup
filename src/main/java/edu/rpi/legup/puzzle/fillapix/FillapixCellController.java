@@ -11,28 +11,21 @@ public class FillapixCellController extends ElementController
     @Override
     public void changeCell(MouseEvent e, Element data)
     {
+        FillapixCell cell = (FillapixCell) data;
         if(e.getButton() == MouseEvent.BUTTON1)
         {
-            if(e.isControlDown())
-            {
-                this.boardView.getSelectionPopupMenu().show(boardView, this.boardView.getCanvas().getX() + e.getX(), this.boardView.getCanvas().getY() + e.getY());
+            int val = cell.getData();
+            if(val >= 9) {
+                cell.setData(-1);
+            } else {
+                cell.setData(++val);
             }
-            else
-            {
-                Point location = new Point(data.getIndex() / boardView.getWidth(), data.getIndex() % boardView.getWidth());
-                FillapixCell cell = new FillapixCell((Integer) data.getData(), location);
-                if(cell.isUnknown())
-                {
-                    data.setData(cell.getData() + FillapixCell.BLACK);
-                }
-                else if(cell.isBlack())
-                {
-                    data.setData(cell.getData() + FillapixCell.WHITE);
-                }
-                else if(cell.isWhite())
-                {
-                    data.setData(cell.getData() + FillapixCell.UNKNOWN);
-                }
+        } else {
+            int val = cell.getData();
+            if(val <= -1) {
+                cell.setData(9);
+            } else {
+                cell.setData(--val);
             }
         }
     }
