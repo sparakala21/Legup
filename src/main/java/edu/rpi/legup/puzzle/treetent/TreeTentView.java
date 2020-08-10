@@ -183,18 +183,42 @@ public class TreeTentView extends GridBoardView {
         }
 
         for (TreeTentClueView clueView : northClues) {
+        	if (board instanceof CaseBoard) {
+        		if(((CaseBoard) board).isPickable(clueView.getPuzzleElement(), null)) {
+        			clueView.drawCase(graphics2D);
+        		}
+        		clueView.draw(graphics2D);
+            }
             clueView.draw(graphics2D);
         }
 
         for (TreeTentClueView clueView : eastClues) {
+        	if (board instanceof CaseBoard) {
+        		if(((CaseBoard) board).isPickable(clueView.getPuzzleElement(), null)) {
+        			clueView.drawCase(graphics2D);
+        		}
+        		clueView.draw(graphics2D);
+            }
             clueView.draw(graphics2D);
         }
 
         for (TreeTentClueView clueView : southClues) {
+        	if (board instanceof CaseBoard) {
+        		if(((CaseBoard) board).isPickable(clueView.getPuzzleElement(), null)) {
+        			clueView.drawCase(graphics2D);
+        		}
+        		clueView.draw(graphics2D);
+            }
             clueView.draw(graphics2D);
         }
 
         for (TreeTentClueView clueView : westClues) {
+        	if (board instanceof CaseBoard) {
+        		if(((CaseBoard) board).isPickable(clueView.getPuzzleElement(), null)) {
+        			clueView.drawCase(graphics2D);
+        		}
+        		clueView.draw(graphics2D);
+            }
             clueView.draw(graphics2D);
         }
     }
