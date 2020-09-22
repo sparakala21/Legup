@@ -3,9 +3,16 @@ package edu.rpi.legup.puzzle.treetent.rules;
 import edu.rpi.legup.model.gameboard.Board;
 import edu.rpi.legup.model.gameboard.PuzzleElement;
 import edu.rpi.legup.model.rules.ContradictionRule;
+import edu.rpi.legup.model.tree.TreeNode;
 import edu.rpi.legup.puzzle.treetent.TreeTentBoard;
 import edu.rpi.legup.puzzle.treetent.TreeTentCell;
 import edu.rpi.legup.puzzle.treetent.TreeTentType;
+import edu.rpi.legup.puzzle.treetent.TreeTentLine;
+
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class NoTentForTreeContradictionRule extends ContradictionRule {
 
@@ -30,7 +37,28 @@ public class NoTentForTreeContradictionRule extends ContradictionRule {
         if (cell.getType() != TreeTentType.TREE) {
             return "This cell does not contain a contradiction at this location.";
         }
-        int adjTent = treeTentBoard.getAdjacent(cell, TreeTentType.TENT).size();
+        List<TreeTentCell> adjTents = treeTentBoard.getAdjacent(cell, TreeTentType.TENT);
+        int adjTent = 0;
+        for (TreeTentCell t : adjTents){
+            boolean isLinked = false;
+
+            ArrayList<TreeTentLine> lines = treeTentBoard.getLines();
+            for (TreeTentLine l : lines) {
+                TreeTentCell c1 = l.getC1();
+                TreeTentCell c2 = l.getC2();
+                if (c1.getLocation().equals(t.getLocation())){
+                    isLinked = true;
+                }
+                if (c2.getLocation().equals(t.getLocation())) {
+                    isLinked = true;
+                }
+            }
+            if (isLinked == false ){
+                adjTent += 1;
+            }
+
+
+        }
         int adjUnknown = treeTentBoard.getAdjacent(cell, TreeTentType.UNKNOWN).size();
         if (adjTent == 0 && adjUnknown == 0) {
             return null;

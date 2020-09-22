@@ -7,6 +7,10 @@ import edu.rpi.legup.puzzle.treetent.TreeTentBoard;
 import edu.rpi.legup.puzzle.treetent.TreeTentCell;
 import edu.rpi.legup.puzzle.treetent.TreeTentType;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 public class TouchingTentsContradictionRule extends ContradictionRule {
 
     public TouchingTentsContradictionRule() {
@@ -25,16 +29,29 @@ public class TouchingTentsContradictionRule extends ContradictionRule {
      */
     @Override
     public String checkContradictionAt(Board board, PuzzleElement puzzleElement) {
-        TreeTentBoard treeTentBoard = (TreeTentBoard) board;
+        TreeTentBoard treeTentBoard = (TreeTentBoard) board.copy();
+        List<TreeTentCell> Tents = new ArrayList<TreeTentCell>();
         TreeTentCell cell = (TreeTentCell) puzzleElement;
-        if (cell.getType() != TreeTentType.TREE) {
-            return "This cell does not contain a contradiction at this location.";
+        for (PuzzleElement element : treeTentBoard.getPuzzleElements()) {
+            if (((TreeTentCell) element).getType() == TreeTentType.TENT) {
+                Tents.add((TreeTentCell)element);
+            }
         }
-        int adjTree = treeTentBoard.getAdjacent(cell, TreeTentType.TREE).size();
-        if (adjTree > 0) {
-            return null;
-        } else {
-            return "This cell does not contain a contradiction at this location.";
+        if (Tents.size() == 0) {
+            return "No tent exist, no contradiction";
         }
+
+        for (TreeTentCell t : Tents){
+            List<TreeTentCell> adjTents = treeTentBoard.getAdjacent(t, TreeTentType.TENT);
+            List<TreeTentCell> diaTents = treeTentBoard.getDiagonals(t, TreeTentType.TENT);
+            if (!adjTents.isEmpty()){
+                return null;
+            }
+            if (!diaTents.isEmpty()){
+                return null;
+            }
+
+        }
+        return "This cell does not contain a contradiction at this location.";
     }
 }

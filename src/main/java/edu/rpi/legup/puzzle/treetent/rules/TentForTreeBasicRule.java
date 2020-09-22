@@ -10,7 +10,9 @@ import edu.rpi.legup.puzzle.treetent.TreeTentCell;
 import edu.rpi.legup.puzzle.treetent.TreeTentLine;
 import edu.rpi.legup.puzzle.treetent.TreeTentType;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class TentForTreeBasicRule extends BasicRule {
 
@@ -39,10 +41,10 @@ public class TentForTreeBasicRule extends BasicRule {
         TreeTentBoard finalBoard = (TreeTentBoard) transition.getBoard();
         TreeTentLine finalLine = (TreeTentLine) finalBoard.getPuzzleElement(puzzleElement);
         TreeTentCell tree, tent;
-        if (finalLine.getC1().getType() == TreeTentType.TREE || finalLine.getC2().getType() == TreeTentType.TENT) {
+        if (finalLine.getC1().getType() == TreeTentType.TREE && finalLine.getC2().getType() == TreeTentType.TENT) {
             tree = finalLine.getC1();
             tent = finalLine.getC2();
-        } else if (finalLine.getC2().getType() == TreeTentType.TREE || finalLine.getC1().getType() == TreeTentType.TENT) {
+        } else if (finalLine.getC2().getType() == TreeTentType.TREE && finalLine.getC1().getType() == TreeTentType.TENT) {
             tree = finalLine.getC2();
             tent = finalLine.getC1();
         } else {
@@ -56,9 +58,33 @@ public class TentForTreeBasicRule extends BasicRule {
         }
     }
 
+
     private boolean isForced(TreeTentBoard board, TreeTentCell tree, TreeTentCell tent) {
         List<TreeTentCell> tents = board.getAdjacent(tree, TreeTentType.TENT);
-        return !tents.isEmpty();
+        for (TreeTentCell t : tents){
+            boolean isLinked = false;
+            ArrayList<TreeTentLine> lines = board.getLines();
+            for (TreeTentLine l : lines) {
+                TreeTentCell c1 = l.getC1();
+                TreeTentCell c2 = l.getC2();
+                if (c1.getLocation().equals(t.getLocation())){
+                    isLinked = true;
+                }
+                if (c2.getLocation().equals(t.getLocation())) {
+                    isLinked = true;
+                }
+            }
+            if (isLinked == false && !t.getLocation().equals(tent.getLocation())){
+                return false;
+            }
+
+        }
+        List<TreeTentCell> adjUnknown = board.getAdjacent(tree, TreeTentType.UNKNOWN);
+        if (!adjUnknown.isEmpty()){
+            return false;
+        }
+        return true;
+
     }
 
     /**

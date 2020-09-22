@@ -52,9 +52,29 @@ public class LinkTreeCaseRule extends CaseRule {
         for (TreeTentCell c : adjCells) {
             TreeTentBoard caseBoard = (TreeTentBoard) board.copy();
             TreeTentLine line = new TreeTentLine(cell, c);
-            caseBoard.getLines().add(line);
-            caseBoard.addModifiedData(line);
-            cases.add(caseBoard);
+            ArrayList<TreeTentLine> lines = caseBoard.getLines();
+            boolean add = true;
+            for (TreeTentLine l : lines) {
+                TreeTentCell c1 = l.getC1();
+                TreeTentCell c2 = l.getC2();
+                if (c1.getLocation().equals(cell.getLocation())){
+                    add = false;
+                }
+                if (c1.getLocation().equals(c.getLocation())){
+                    add = false;
+                }
+                if (c2.getLocation().equals(cell.getLocation())){
+                    add = false;
+                }
+                if (c2.getLocation().equals(c.getLocation())){
+                    add = false;
+                }
+            }
+            if(add) {
+                caseBoard.getLines().add(line);
+                caseBoard.addModifiedData(line);
+                cases.add(caseBoard);
+            }
         }
         return cases;
     }
@@ -67,6 +87,7 @@ public class LinkTreeCaseRule extends CaseRule {
      */
     @Override
     public String checkRuleRaw(TreeTransition transition) {
+        /*
         Set<PuzzleElement> modCells = transition.getBoard().getModifiedData();
         if (modCells.size() != 1) {
             return "This case rule must have 1 modified cell for each case.";
@@ -115,6 +136,8 @@ public class LinkTreeCaseRule extends CaseRule {
                 return "Could not find case";
             }
         }
+
+         */
 
         return null;
     }

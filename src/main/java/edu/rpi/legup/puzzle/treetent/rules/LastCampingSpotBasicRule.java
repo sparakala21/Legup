@@ -11,7 +11,9 @@ import edu.rpi.legup.puzzle.treetent.TreeTentLine;
 import edu.rpi.legup.puzzle.treetent.TreeTentType;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class LastCampingSpotBasicRule extends BasicRule {
 
@@ -32,7 +34,11 @@ public class LastCampingSpotBasicRule extends BasicRule {
      */
     @Override
     public String checkRuleRawAt(TreeTransition transition, PuzzleElement puzzleElement) {
+        for (int i = 0; i<10;i++){
+            System.out.printf("check");
+        }
         if (puzzleElement instanceof TreeTentLine) {
+            System.out.printf("erro 1");
             return "Line is not valid for this rule.";
         }
         TreeTentBoard initialBoard = (TreeTentBoard) transition.getParents().get(0).getBoard();
@@ -40,25 +46,73 @@ public class LastCampingSpotBasicRule extends BasicRule {
         TreeTentBoard finalBoard = (TreeTentBoard) transition.getBoard();
         TreeTentCell finalCell = (TreeTentCell) finalBoard.getPuzzleElement(puzzleElement);
         if (!(initCell.getType() == TreeTentType.UNKNOWN && finalCell.getType() == TreeTentType.TENT)) {
+            System.out.printf("erro 2");
             return "This cell must be a tent.";
         }
 
         if (isForced(initialBoard, initCell)) {
+            System.out.printf("erro 3");
             return null;
         } else {
+            System.out.printf("erro 4");
             return "This cell is not forced to be tent.";
         }
     }
 
     private boolean isForced(TreeTentBoard board, TreeTentCell cell) {
-        List<TreeTentCell> adjTents = board.getAdjacent(cell, TreeTentType.TREE);
-        for (TreeTentCell c : adjTents) {
+        List<TreeTentCell> adjTrees = board.getAdjacent(cell, TreeTentType.TREE);
+        boolean validCase = false;
+        for (TreeTentCell c : adjTrees) {
+            boolean isvalid = true;
             Point loc = c.getLocation();
             for (TreeTentLine line : board.getLines()) {
                 if (line.getC1().getLocation().equals(loc) || line.getC2().getLocation().equals(loc)) {
-                    return false;
+                    System.out.printf("erro 5");
+                    isvalid = false;
+                    //valideTrees.add(0);
+                    //return false;
+
                 }
             }
+            List<TreeTentCell> adjTents = board.getAdjacent(c, TreeTentType.TENT);
+            if (!adjTents.isEmpty()){
+                for (TreeTentCell t : adjTents){
+                    boolean isLinked = false;
+
+                    ArrayList<TreeTentLine> lines = board.getLines();
+
+                    for (TreeTentLine l : lines) {
+                        TreeTentCell c1 = l.getC1();
+                        TreeTentCell c2 = l.getC2();
+                        if (c1.getLocation().equals(t.getLocation())){
+                            isLinked = true;
+                        }
+                        if (c2.getLocation().equals(t.getLocation())) {
+                            isLinked = true;
+                        }
+                    }
+                    if (isLinked == false){
+                        isvalid = false;
+                        //valideTrees.add(0);
+                        //return false;
+                    }
+
+                }
+            }
+            List<TreeTentCell> adjUnkown = board.getAdjacent(c, TreeTentType.UNKNOWN);
+            if (adjUnkown.size() != 1){
+                System.out.printf("erro 7");
+                isvalid = false;
+                //valideTrees.add(0);
+                //return false;
+
+            }
+            if(isvalid){
+                validCase = true;
+            }
+        }
+        if(validCase){
+            return true;
         }
         return false;
     }
