@@ -54,7 +54,11 @@ public class NoNumberContradictionRule extends ContradictionRule {
             NurikabeCell bottom = nurikabeBoard.getCell(c.getLocation().x, c.getLocation().y-1);
 
             // modify to only check for cells not in whiteRegion. use contain?
-            if (isEmptyCell(top) || isEmptyCell(left) || isEmptyCell(right) || isEmptyCell(bottom))
+            // find some way of changing how it finds white regions?
+            if ((isEmptyCell(top) && !whiteRegion.contains(top))
+                    || (isEmptyCell(left)  && !whiteRegion.contains(left))
+                    || (isEmptyCell(right) && !whiteRegion.contains(right))
+                    || (isEmptyCell(bottom) && !whiteRegion.contains(bottom)) )
                 return super.getInvalidUseOfRuleMessage() + ": " + this.NOT_SURROUNDED_BY_BLACK_MESSAGE;
         }
         return null;
