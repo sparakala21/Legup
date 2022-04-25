@@ -36,17 +36,18 @@ public class WhiteBottleNeckBasicRule extends BasicRule {
         contras.add(new TooFewSpacesContradictionRule());
 
         NurikabeBoard destBoardState = (NurikabeBoard) transition.getBoard();
-        NurikabeBoard origBoardState = (NurikabeBoard) transition.getParents().get(0).getBoard();
+        //NurikabeBoard origBoardState = (NurikabeBoard) transition.getParents().get(0).getBoard();
 
         NurikabeCell cell = (NurikabeCell) destBoardState.getPuzzleElement(puzzleElement);
 
         if (cell.getType() != NurikabeType.WHITE) {
             return "Only white cells are allowed for this rule!";
         }
-        NurikabeBoard modified = origBoardState.copy();
+        // make contradiction checks on destBoard to ensure multiple square logic is checked correctly
+        NurikabeBoard modified = destBoardState.copy();
         NurikabeCell modCell = (NurikabeCell) modified.getPuzzleElement(puzzleElement);
         modCell.setData(NurikabeType.BLACK.toValue());
-
+        // try noNum with future board instead. needs to be whole instead of partial
         for (ContradictionRule contraRule : contras) {
             if (contraRule.checkContradiction(modified) == null) {
                 return null;
