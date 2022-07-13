@@ -27,6 +27,7 @@ public class RuleFrame extends JPanel {
     private ContradictionRulePanel contradictionPanel;
     private CaseRulePanel casePanel;
 
+    private AddDrag addDragPanel;
     private JTabbedPane tabbedPane;
     private JLabel status;
     private ButtonGroup buttonGroup;
@@ -154,5 +155,8 @@ public class RuleFrame extends JPanel {
 
     public ContradictionRulePanel getContradictionPanel() {
         return contradictionPanel;
+    }
+    public AddDrag getAddDragPanel() {
+        return addDragPanel;
     }
 }

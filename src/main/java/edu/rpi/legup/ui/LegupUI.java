@@ -894,6 +894,8 @@ public class LegupUI extends JFrame implements WindowListener, IHistoryListener 
         ruleFrame.getBasicRulePanel().setRules(puzzle.getBasicRules());
         ruleFrame.getCasePanel().setRules(puzzle.getCaseRules());
         ruleFrame.getContradictionPanel().setRules(puzzle.getContradictionRules());
+        ruleFrame.getAddDragPanel().Getrule();
+
 
         toolBarButtons[ToolbarName.CHECK.ordinal()].setEnabled(true);
         toolBarButtons[ToolbarName.SAVE.ordinal()].setEnabled(true);
