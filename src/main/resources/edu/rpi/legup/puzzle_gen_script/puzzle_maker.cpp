@@ -70,7 +70,7 @@ int main() {
     std::string name;
     std::string res;
     while (true) {
-        printf("\e[KPuzzle Qualified Class Name (with correct capitaliztion): ");
+        printf("\e[KPuzzle Qualified Class Name (with correct capitalization): ");
         name = "";
         std::cin >> name;
         res = name;

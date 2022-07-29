@@ -26,6 +26,8 @@ public class PreferencesDialog extends JDialog {
     private JCheckBox fullScreen, autoUpdate, showMistakes, showAnnotations, allowDefault, generateCases, immFeedback;
     private JTextField workDirectory;
 
+    private JButton applyButton;
+
     private static Image folderIcon;
 
     static {
@@ -64,7 +66,8 @@ public class PreferencesDialog extends JDialog {
             this.setVisible(false);
         });
         toolbar.add(cancelButton);
-        JButton applyButton = new JButton("Apply");
+        applyButton = new JButton("Apply");
+        applyButton.setEnabled(false);
         applyButton.addActionListener(l -> {
             applyPreferences();
         });
@@ -133,6 +136,7 @@ public class PreferencesDialog extends JDialog {
         contentPane.add(createLeftLabel("Board View Preferences"));
         contentPane.add(createLineSeparator());
         showMistakes = new JCheckBox("Show Mistakes", Boolean.valueOf(prefs.getUserPref(LegupPreferences.SHOW_MISTAKES)));
+        showMistakes.addItemListener(this);
         showMistakes.setToolTipText("If checked this show incorrectly applied rule applications in red on the board");
         JPanel showMistakesRow = new JPanel();
         showMistakesRow.setLayout(new BorderLayout());
@@ -292,6 +296,10 @@ public class PreferencesDialog extends JDialog {
         JSeparator separator = new JSeparator();
         separator.setMaximumSize(new Dimension(Integer.MAX_VALUE, 5));
         return separator;
+    }
+
+    private void itemStateChanged(ItemEvent ie) {
+        applyButton.setEnabled(true);
     }
 
     public void applyPreferences() {
