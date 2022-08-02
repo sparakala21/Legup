@@ -26,7 +26,8 @@ public class HomePanel extends LegupPanel {
         JMenu settings = new JMenu("Settings");
         menuBar.add(settings);
         JMenuItem preferences = new JMenuItem("Preferences");
-        preferences.addActionListener(a -> { System.out.println("Preferences clicked"); });
+        preferences.addActionListener(a -> { new PreferencesDialog(frame);
+            System.out.println("Preferences clicked"); });
         settings.add(preferences);
 
         JMenuItem about = new JMenuItem("About");
