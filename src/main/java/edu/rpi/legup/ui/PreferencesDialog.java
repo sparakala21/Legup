@@ -5,6 +5,7 @@ import edu.rpi.legup.model.Puzzle;
 import edu.rpi.legup.model.rules.Rule;
 import edu.rpi.legup.ui.lookandfeel.materialdesign.MaterialBorders;
 import edu.rpi.legup.ui.lookandfeel.materialdesign.MaterialFonts;
+import edu.rpi.legup.model.rules.Rule;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.FlatDarkLaf;
+
 
 public class PreferencesDialog extends JDialog {
 
@@ -94,6 +96,9 @@ public class PreferencesDialog extends JDialog {
             System.err.println("Not supported ui look and feel");
         }
     }
+
+
+
 
     private JScrollPane createGeneralTab() {
         LegupPreferences prefs = LegupPreferences.getInstance();
@@ -349,5 +354,6 @@ public class PreferencesDialog extends JDialog {
 
         // toggle dark mode based on updated NIGHT_MODE variable
         toggleDarkMode(prefs);
+
     }
 }
