@@ -174,6 +174,7 @@ public abstract class Rule {
      * @return image icon of the rule
      */
     public ImageIcon getImageIcon() {
+        loadImage();
         return image;
     }
 

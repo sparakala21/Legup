@@ -6,6 +6,7 @@ import edu.rpi.legup.model.rules.Rule;
 import edu.rpi.legup.ui.lookandfeel.materialdesign.MaterialBorders;
 import edu.rpi.legup.ui.lookandfeel.materialdesign.MaterialFonts;
 import edu.rpi.legup.model.rules.Rule;
+import edu.rpi.legup.ui.proofeditorui.rulesview.RuleFrame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -94,6 +95,14 @@ public class PreferencesDialog extends JDialog {
         }
         catch (UnsupportedLookAndFeelException e) {
             System.err.println("Not supported ui look and feel");
+        }
+    }
+    private void toggleColorBlindMode(LegupPreferences prefs)
+    {
+        RulePanel.setRules();
+        if(Boolean.valueOf(prefs.getUserPref(LegupPreferences.COLOR_BLIND)))
+        {
+
         }
     }
 
