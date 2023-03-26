@@ -27,6 +27,7 @@ public class RuleButton extends JButton {
         return rule;
     }
 
+
     /**
      * Sets the Rule for this button
      *
@@ -34,5 +35,11 @@ public class RuleButton extends JButton {
      */
     void setRule(Rule rule) {
         this.rule = rule;
+    }
+
+    void updateImage()
+    {
+        this.rule.updateImage();
+        System.out.println(this.rule.toString());
     }
 }

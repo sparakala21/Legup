@@ -140,6 +140,13 @@ public class RuleFrame extends JPanel {
         casePanel.setRules(puzzle.getCaseRules());
     }
 
+    public void updateRules(Puzzle puzzle)
+    {
+        DirectRulePanel.updateRules(puzzle.getDirectRules());
+        contradictionPanel.updateRules(puzzle.getContradictionRules());
+        casePanel.updateRules(puzzle.getCaseRules());
+    }
+
     /**
      * Board puzzleElement has changed
      *

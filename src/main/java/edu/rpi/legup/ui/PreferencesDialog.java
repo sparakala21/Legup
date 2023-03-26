@@ -97,14 +97,6 @@ public class PreferencesDialog extends JDialog {
             System.err.println("Not supported ui look and feel");
         }
     }
-    private void toggleColorBlindMode(LegupPreferences prefs)
-    {
-        RulePanel.setRules();
-        if(Boolean.valueOf(prefs.getUserPref(LegupPreferences.COLOR_BLIND)))
-        {
-
-        }
-    }
 
 
 

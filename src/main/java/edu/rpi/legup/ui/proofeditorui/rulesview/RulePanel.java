@@ -70,6 +70,19 @@ public abstract class RulePanel extends JPanel {
         }
         revalidate();
     }
+    public void updateRules(List<? extends Rule> rules)
+    {
+        this.rules = rules;
+        clearButtons();
+
+        ruleButtons = new RuleButton[rules.size()];
+        for(int i = 0;i < ruleButtons.length; i++)
+        {
+            ruleButtons[i].updateImage();
+        }
+    }
+
+
 
 
     /**
@@ -280,6 +293,8 @@ public abstract class RulePanel extends JPanel {
             }
         }
     }
+
+
 
     /**
      * Gets the rules associated with this panel
