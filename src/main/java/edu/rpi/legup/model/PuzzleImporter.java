@@ -181,6 +181,10 @@ public abstract class PuzzleImporter {
         HashMap<String, TreeTransition> treeTransitions = new HashMap<>();
         HashMap<TreeTransition, Node> nodeChanges = new HashMap<>();
 
+
+        //looping through the elements in the <tree> tag with the tag <node>
+        //finds the rootNode and gives the attribute isRoot
+        //putting those in a hash table which maps their ID to their object.
         for (int i = 0; i < nodeList.getLength(); i++) {
             org.w3c.dom.Element treeNodeElement = (org.w3c.dom.Element) nodeList.item(i);
             String nodeId = treeNodeElement.getAttribute("id");
@@ -202,13 +206,19 @@ public abstract class PuzzleImporter {
             treeNodes.put(nodeId, treeNode);
         }
 
-
+        //loops through the elements in the <tree> tag with the tag <node>
+        //gets the transitions out of that node
         for (int i = 0; i < nodeList.getLength(); i++) {
             org.w3c.dom.Element treeNodeElement = (org.w3c.dom.Element) nodeList.item(i);
             String nodeId = treeNodeElement.getAttribute("id");
             TreeNode treeNode = treeNodes.get(nodeId);
 
             NodeList transList = treeNodeElement.getElementsByTagName("transition");
+
+            //loops through all the transitions out of a node,
+            // and makes TreeTransition objects for
+            //all of them.
+            // it then adds all of them as children of the treeNode
             for (int k = 0; k < transList.getLength(); k++) {
                 org.w3c.dom.Element trans = (org.w3c.dom.Element) transList.item(k);
                 String transId = trans.getAttribute("id");

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Legup version="3.0.0">
+    <puzzle name="LightUp">
+        <board height="7" width="7">
+            <cells>
+                <cell value="1" x="2" y="0"/>
+                <cell value="0" x="1" y="1"/>
+                <cell value="2" x="5" y="1"/>
+                <cell value="1" x="6" y="2"/>
+                <cell value="0" x="3" y="3"/>
+                <cell value="2" x="0" y="4"/>
+                <cell value="2" x="1" y="5"/>
+                <cell value="-1" x="5" y="5"/>
+                <cell value="2" x="4" y="6"/>
+            </cells>
+        </board>
+        <proof>
+            <tree>
+                <node id="639768274" root="true">
+                    <transition child="700280715" id="1414644024" rule="Finish with Empty" rule_id="LTUP-BASC-0005">
+                        <cell value="-3" x="1" y="2"/>
+                        <cell value="-3" x="1" y="0"/>
+                        <cell value="-3" x="0" y="1"/>
+                        <cell value="-3" x="2" y="1"/>
+                    </transition>
+                </node>
+                <node id="700280715">
+                    <transition child="1271930309" id="1217138921" rule="Finish with Bulbs" rule_id="LTUP-BASC-0004">
+                        <cell value="-4" x="3" y="0"/>
+                    </transition>
+                </node>
+                <node id="1271930309">
+                    <transition child="1650345382" id="987458274" rule="Finish with Empty" rule_id="LTUP-BASC-0005">
+                        <cell value="-3" x="3" y="4"/>
+                        <cell value="-3" x="4" y="3"/>
+                        <cell value="-3" x="2" y="3"/>
+                    </transition>
+                </node>
+                <node id="1650345382"/>
+            </tree>
+        </proof>
+    </puzzle>
+</Legup>

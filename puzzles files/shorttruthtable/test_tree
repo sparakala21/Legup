@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Legup version="2.0.0">
+<Legup version="3.0.0">
     <puzzle name="ShortTruthTable">
         <board>
             <data>
@@ -13,15 +13,14 @@
         </board>
         <proof>
             <tree>
-                <node id="828009802" root="true">
-                    <transition child="130260033" id="384363583" rule="Conditional Elimination">
-                        <cell char_index="0" row_index="2" type="TRUE"/>
+                <node id="148965382" root="true">
+                    <transition child="1769085849" id="1546875487" rule="Conditional Elimination" rule_id="STTT-BASC-0004">
                         <cell char_index="2" row_index="2" type="FALSE"/>
+                        <cell char_index="0" row_index="2" type="TRUE"/>
                     </transition>
                 </node>
-                <node id="130260033"/>
+                <node id="1769085849"/>
             </tree>
         </proof>
     </puzzle>
-    <Solved isSolved="false"/>
 </Legup>

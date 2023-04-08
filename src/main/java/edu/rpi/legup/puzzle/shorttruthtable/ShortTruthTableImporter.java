@@ -22,7 +22,7 @@ class ShortTruthTableImporter extends PuzzleImporter {
 
 
     /**
-     * Parse a string into all te cells, the y position of the statement is passed so the y position can be set
+     * Parse a string into all the cells, the y position of the statement is passed so the y position can be set
      *
      * @param statement
      * @param y
